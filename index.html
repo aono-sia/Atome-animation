@@ -14,24 +14,23 @@
 }
 
 body {
-  background: #030713;
+  background: #030611;
   color: white;
   font-family: Arial, sans-serif;
   overflow: hidden;
 }
 
-.scene {
-  width: 100%;
+#screen {
   height: 100vh;
-  min-height: 500px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
+  min-height: 520px;
+  width: 100%;
   position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   overflow: hidden;
-  background:
-    radial-gradient(ellipse at center, #10264c 0%, #071126 45%, #02040c 100%);
+  background: radial-gradient(circle, #10284d, #030611 75%);
+  transition: background 1s;
 }
 
 .stars {
@@ -39,165 +38,558 @@ body {
   inset: 0;
   background-image:
     radial-gradient(white 1px, transparent 1px),
-    radial-gradient(#70bfff 1px, transparent 1px);
-  background-size: 75px 75px, 113px 113px;
-  animation: stars 35s linear infinite;
-  opacity: .55;
+    radial-gradient(#65baff 1px, transparent 1px);
+  background-size: 65px 65px, 110px 110px;
+  animation: stars 30s linear infinite;
 }
 
 @keyframes stars {
-  from { transform: translateY(0); }
-  to { transform: translateY(150px); }
+  to { transform: translateY(130px); }
 }
 
-.eyebrow {
-  color: #76caff;
-  letter-spacing: 7px;
-  font-size: 12px;
-  margin-bottom: 22px;
-}
-
-h1 {
-  font-size: clamp(48px, 12vw, 110px);
-  letter-spacing: 8px;
+.content {
+  z-index: 2;
   text-align: center;
-  text-shadow: 0 0 25px #168fff;
-  animation: reveal 2s ease both;
+  width: 90%;
+  max-width: 850px;
+  animation: appear 1s ease;
 }
 
-.subtitle {
-  margin-top: 18px;
-  color: #a9c8ed;
-  letter-spacing: 4px;
-  text-align: center;
-  font-size: clamp(12px, 3vw, 17px);
-}
-
-.atom {
-  position: relative;
-  width: 190px;
-  height: 190px;
-  margin-bottom: 35px;
-  animation: float 4s ease-in-out infinite;
-}
-
-.nucleus {
-  position: absolute;
-  width: 24px;
-  height: 24px;
-  border-radius: 50%;
-  background: #ff9c46;
-  box-shadow: 0 0 30px #ff6b20;
-  top: 83px;
-  left: 83px;
-}
-
-.orbit {
-  position: absolute;
-  width: 180px;
-  height: 65px;
-  border: 2px solid #42baff;
-  border-radius: 50%;
-  top: 62px;
-  left: 5px;
-  box-shadow: 0 0 12px #168fff;
-}
-
-.orbit.one { transform: rotate(0deg); }
-.orbit.two { transform: rotate(60deg); }
-.orbit.three { transform: rotate(-60deg); }
-
-.electron {
-  width: 10px;
-  height: 10px;
-  position: absolute;
-  background: #a5eaff;
-  border-radius: 50%;
-  box-shadow: 0 0 15px #42baff;
-  top: -5px;
-  left: 85px;
-}
-
-@keyframes float {
-  0%,100% { transform: translateY(0); }
-  50% { transform: translateY(-12px); }
-}
-
-@keyframes reveal {
+@keyframes appear {
   from { opacity: 0; transform: translateY(25px); }
   to { opacity: 1; transform: translateY(0); }
 }
 
-button {
-  margin-top: 42px;
-  padding: 14px 35px;
-  background: transparent;
-  border: 1px solid #48baff;
-  color: white;
-  letter-spacing: 3px;
-  cursor: pointer;
-  transition: .3s;
+.small-title {
+  color: #72caff;
+  letter-spacing: 5px;
+  font-size: 12px;
+  margin-bottom: 20px;
 }
 
-button:hover {
-  background: #168fff;
-  box-shadow: 0 0 25px #168fff;
+h1 {
+  font-size: clamp(45px, 11vw, 100px);
+  letter-spacing: 8px;
+  text-shadow: 0 0 30px #168fff;
 }
 
-#intro {
-  position: absolute;
-  inset: 0;
-  background: #02040c;
+h2 {
+  font-size: clamp(25px, 6vw, 45px);
+  margin: 15px 0;
+  color: #8dd5ff;
+}
+
+.description {
+  color: #b9cce6;
+  line-height: 1.8;
+  margin: 20px auto;
+  max-width: 650px;
+  font-size: clamp(14px, 3vw, 18px);
+}
+
+.character {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 125px;
+  height: 125px;
+  border-radius: 25px;
+  margin: 15px;
+  font-size: 23px;
+  font-weight: bold;
+  letter-spacing: 2px;
+  animation: float 3s ease-in-out infinite;
+  box-shadow: 0 0 30px #0008;
+}
+
+.jax { background: linear-gradient(145deg,#a53aaf,#35104b); }
+.bubble { background: linear-gradient(145deg,#7eeaff,#167bb0); color:#09233c; border-radius:50%; }
+.caine { background: linear-gradient(145deg,#e9e5d5,#7a2525); color:#311111; }
+.pomni { background: linear-gradient(145deg,#e74c58,#4a193b); }
+
+@keyframes float {
+  0%,100% { transform: translateY(0) rotate(-2deg); }
+  50% { transform: translateY(-13px) rotate(2deg); }
+}
+
+.dialogue {
+  background: #09182de8;
+  border: 1px solid #3989c9;
+  border-radius: 15px;
+  padding: 20px;
+  margin: 20px auto;
+  max-width: 650px;
+  line-height: 1.7;
+  box-shadow: 0 0 25px #167fff22;
+}
+
+.speaker {
+  color: #71caff;
+  font-weight: bold;
+  margin-bottom: 8px;
+  letter-spacing: 2px;
+}
+
+.model {
   display: flex;
   justify-content: center;
   align-items: center;
-  flex-direction: column;
-  z-index: 5;
-  text-align: center;
-  transition: opacity 1s;
+  gap: 25px;
+  margin: 25px auto;
+  flex-wrap: wrap;
 }
 
-#intro.hidden {
-  opacity: 0;
-  pointer-events: none;
+.atom {
+  width: 110px;
+  height: 110px;
+  position: relative;
+  margin: 15px;
 }
 
-#intro p {
-  color: #80caff;
-  letter-spacing: 5px;
-  margin-top: 15px;
+.nucleus {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: #ff9b45;
+  box-shadow: 0 0 25px #ff7b22;
+  position: absolute;
+  top: 45px;
+  left: 45px;
+}
+
+.orbit {
+  position: absolute;
+  width: 110px;
+  height: 42px;
+  border: 2px solid #53baff;
+  border-radius: 50%;
+  top: 34px;
+  left: 0;
+  box-shadow: 0 0 10px #168fff;
+}
+
+.o1 { transform: rotate(60deg); }
+.o2 { transform: rotate(-60deg); }
+
+.electron {
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background: #a9eaff;
+  position: absolute;
+  top: -5px;
+  left: 50px;
+}
+
+.model-card {
+  background: #0c1b31;
+  border: 1px solid #245b88;
+  border-radius: 15px;
+  padding: 20px;
+  width: min(230px, 90%);
+}
+
+.model-card h3 {
+  color: #76caff;
+  margin-bottom: 10px;
+}
+
+.model-card p {
+  color: #c4d3e8;
+  font-size: 14px;
+  line-height: 1.6;
+}
+
+.curtain {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 50%;
+  background: repeating-linear-gradient(
+    90deg, #650c24, #a51d3b 30px, #5b1026 60px
+  );
+  z-index: 4;
+  transition: transform 1.5s ease;
+}
+
+.left { left: 0; }
+.right { right: 0; }
+
+.curtain.open.left { transform: translateX(-100%); }
+.curtain.open.right { transform: translateX(100%); }
+
+#controls {
+  position: absolute;
+  z-index: 8;
+  bottom: 20px;
+  left: 0;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 15px;
+}
+
+button {
+  background: #0d3156;
+  color: white;
+  border: 1px solid #54baff;
+  padding: 12px 23px;
+  border-radius: 30px;
+  cursor: pointer;
+  letter-spacing: 1px;
+}
+
+button:hover {
+  background: #1765a0;
+  box-shadow: 0 0 20px #168fff;
+}
+
+#counter {
+  color: #8abce6;
+  font-size: 13px;
+}
+
+.glitch {
+  animation: glitch .35s 3;
+}
+
+@keyframes glitch {
+  0% { transform: translate(0); filter: none; }
+  25% { transform: translate(7px,-3px); filter: hue-rotate(90deg); }
+  50% { transform: translate(-6px,3px); filter: invert(.5); }
+  75% { transform: translate(3px,2px); }
+  100% { transform: translate(0); filter: none; }
+}
+
+.pop {
+  animation: pop .5s forwards;
+}
+
+@keyframes pop {
+  to { transform: scale(0); opacity: 0; }
+}
+
+@media(max-width:500px) {
+  .character { width: 95px; height: 95px; min-width: 95px; font-size: 17px; }
+  .model-card { padding: 13px; }
+  #controls { bottom: 12px; }
+  button { padding: 10px 16px; }
 }
 </style>
 </head>
 
 <body>
 
-<div class="scene">
+<div id="screen">
   <div class="stars"></div>
 
-  <div id="intro">
-    <div class="eyebrow">UNE EXPLORATION SCIENTIFIQUE</div>
-    <h1>L’ATOME</h1>
-    <p>AU CŒUR DE LA MATIÈRE</p>
-    <button onclick="start()">COMMENCER</button>
-  </div>
+  <div class="content" id="content"></div>
 
-  <div class="atom">
-    <div class="orbit one"><span class="electron"></span></div>
-    <div class="orbit two"><span class="electron"></span></div>
-    <div class="orbit three"><span class="electron"></span></div>
-    <div class="nucleus"></div>
-  </div>
+  <div class="curtain left" id="leftCurtain"></div>
+  <div class="curtain right" id="rightCurtain"></div>
 
-  <div class="eyebrow">BIENVENUE DANS L’INFINIMENT PETIT</div>
-  <h1>L’ATOME</h1>
-  <p class="subtitle">AU CŒUR DE LA MATIÈRE</p>
+  <div id="controls">
+    <button onclick="previousScene()">PRÉCÉDENT</button>
+    <span id="counter">1 / 12</span>
+    <button onclick="nextScene()">SUIVANT</button>
+  </div>
 </div>
 
 <script>
-function start() {
-  document.getElementById("intro").classList.add("hidden");
+const scenes = [
+
+{
+title: "L’INFINI",
+html: `
+<div class="small-title">AU-DELÀ DE NOTRE MONDE</div>
+<h1>UNIVERS</h1>
+<p class="description">Une aventure commence dans l'immensité de l'espace...</p>
+`,
+bg: "radial-gradient(circle,#173c70,#030611 75%)"
+},
+
+{
+title: "LA TERRE",
+html: `
+<div class="small-title">UNE PLANÈTE PARMI DES MILLIARDS</div>
+<h2>Bienvenue sur Terre</h2>
+<div style="font-size:90px">🌍</div>
+<p class="description">C'est ici que commence notre voyage au cœur de la matière.</p>
+`,
+bg: "radial-gradient(circle,#124c70,#030611)"
+},
+
+{
+title: "JAX",
+html: `
+<div class="character jax">JAX</div>
+<h2>Bonjour tout le monde !</h2>
+<div class="dialogue">
+<div class="speaker">JAX</div>
+Bienvenue dans notre incroyable voyage au cœur de la matière !
+</div>
+`,
+bg: "radial-gradient(circle,#40154f,#030611)"
+},
+
+{
+title: "LE SPECTACLE",
+html: `
+<div class="small-title">PRÉSENTE</div>
+<h1>L’ATOME</h1>
+<h2>Au cœur de la matière</h2>
+<p class="description">Préparez-vous à découvrir l'infiniment petit !</p>
+`,
+curtain: true
+},
+
+{
+title: "BUBBLE",
+html: `
+<div class="character bubble">BUBBLE</div>
+<div class="dialogue">
+<div class="speaker">BUBBLE</div>
+Jax ! On commence par Schrödinger ? C'est mon préféré !
+</div>
+`,
+bg: "radial-gradient(circle,#125b81,#030611)"
+},
+
+{
+title: "POP !",
+html: `
+<div class="character bubble" id="bubblePop">BUBBLE</div>
+<h2>POP !</h2>
+<p class="description">Jax n'avait visiblement pas envie de commencer par Schrödinger...</p>
+`,
+bg: "radial-gradient(circle,#421447,#030611)",
+pop: true
+},
+
+{
+title: "DALTON",
+html: `
+<div class="small-title">LES PREMIERS MODÈLES ATOMIQUES</div>
+<h2>John Dalton</h2>
+<div class="model">
+<div class="model-card">
+<h3>La sphère solide</h3>
+<div style="font-size:60px">🔵</div>
+<p>Selon Dalton, l'atome est une sphère solide, indivisible et indestructible dans son modèle.</p>
+</div>
+</div>
+<div class="dialogue">
+<div class="speaker">JAX</div>
+Commençons par Dalton ! Pour lui, l'atome était une petite sphère solide.
+</div>
+`,
+bg: "radial-gradient(circle,#18345d,#030611)"
+},
+
+{
+title: "THOMSON",
+html: `
+<div class="small-title">LE MODÈLE DU « PLUM PUDDING »</div>
+<h2>J. J. Thomson</h2>
+<div class="model">
+<div class="model-card">
+<h3>Le modèle de Thomson</h3>
+<div style="font-size:55px">🟠</div>
+<p>Des électrons négatifs sont répartis dans une matière chargée positivement.</p>
+</div>
+</div>
+<div class="dialogue">
+<div class="speaker">JAX</div>
+Thomson découvre l'électron et propose un nouveau modèle de l'atome !
+</div>
+`,
+bg: "radial-gradient(circle,#18345d,#030611)"
+},
+
+{
+title: "CAINE",
+html: `
+<div class="character caine">CAINE</div>
+<h2>JAX ! Ça suffit !</h2>
+<div class="dialogue">
+<div class="speaker">CAINE</div>
+Laissez-moi prendre les choses en main ! Sortez de scène !
+</div>
+<p class="description">Caine prend la place de Jax et poursuit la présentation.</p>
+`,
+bg: "radial-gradient(circle,#62221e,#030611)"
+},
+
+{
+title: "RUTHERFORD & BOHR",
+html: `
+<div class="small-title">UNE NOUVELLE VISION DE L'ATOME</div>
+<div class="model">
+<div class="model-card">
+<h3>Rutherford</h3>
+<div class="atom">
+<div class="orbit"></div>
+<div class="nucleus"></div>
+</div>
+<p>Un petit noyau positif entouré d'électrons. L'atome est essentiellement constitué de vide.</p>
+</div>
+<div class="model-card">
+<h3>Bohr</h3>
+<div class="atom">
+<div class="orbit"></div>
+<div class="orbit o1"></div>
+<div class="nucleus"></div>
+</div>
+<p>Les électrons occupent des niveaux d'énergie bien définis.</p>
+</div>
+</div>
+<div class="dialogue">
+<div class="speaker">CAINE</div>
+Rutherford découvre le noyau atomique, puis Bohr propose des niveaux d'énergie pour les électrons !
+</div>
+`,
+bg: "radial-gradient(circle,#173b5c,#030611)"
+},
+
+{
+title: "BUBBLE REVIENT",
+html: `
+<div class="character bubble">BUBBLE</div>
+<div class="dialogue">
+<div class="speaker">BUBBLE</div>
+CAINE ! Et Schrödinger alors ? Et Schrödinger ?!
+</div>
+<h2>Encore toi ?!</h2>
+<p class="description">Bubble revient interrompre le spectacle et perturbe Caine.</p>
+`,
+bg: "radial-gradient(circle,#174c70,#030611)"
+},
+
+{
+title: "GLITCH !",
+html: `
+<div class="character caine">CAINE</div>
+<h2>ÇA SUFFIT !</h2>
+<div class="dialogue">
+<div class="speaker">CAINE</div>
+Dehors, Bubble ! Et maintenant, laissez-moi terminer !
+</div>
+<p class="description">Dans la confusion, Caine frappe l'écran... et tout se dérègle !</p>
+`,
+bg: "radial-gradient(circle,#6c1428,#030611)",
+glitch: true
+},
+
+{
+title: "POMNI",
+html: `
+<div class="character pomni">POMNI</div>
+<h2>Bonjour... euh... tout le monde !</h2>
+<div class="dialogue">
+<div class="speaker">POMNI</div>
+Je crois que l'écran a besoin d'être réparé...
+</div>
+<p class="description">Pomni rétablit le système et remet le spectacle en marche.</p>
+`,
+bg: "radial-gradient(circle,#4a183d,#030611)"
+},
+
+{
+title: "SCHRÖDINGER",
+html: `
+<div class="small-title">LE MODÈLE QUANTIQUE</div>
+<h2>Erwin Schrödinger</h2>
+<div class="model-card" style="margin:auto">
+<h3>Le modèle quantique</h3>
+<div style="font-size:65px">⚛️</div>
+<p>Les électrons sont décrits par une fonction d'onde. On parle de probabilité de présence dans des orbitales atomiques.</p>
+</div>
+<div class="dialogue">
+<div class="speaker">POMNI</div>
+Le modèle quantique ne décrit plus les électrons comme de petites planètes sur des trajectoires précises. Il décrit les régions où leur présence est probable !
+</div>
+`,
+bg: "radial-gradient(circle,#173e70,#030611)"
+},
+
+{
+title: "FIN",
+html: `
+<div class="small-title">FIN DE L'EXPLORATION</div>
+<h1>L’ATOME</h1>
+<h2>Au cœur de la matière</h2>
+<p class="description">De Dalton à Schrödinger, notre compréhension de l'atome n'a cessé d'évoluer.</p>
+<div style="font-size:55px;margin:20px">⚛️</div>
+<p class="small-title">MERCI POUR VOTRE ATTENTION</p>
+`
 }
+
+];
+
+let current = 0;
+
+function render() {
+  const scene = scenes[current];
+  const content = document.getElementById("content");
+  const screen = document.getElementById("screen");
+
+  content.style.animation = "none";
+  content.offsetHeight;
+  content.style.animation = "appear 1s ease";
+
+  content.innerHTML = scene.html;
+  screen.style.background = scene.bg || "radial-gradient(circle,#10284d,#030611 75%)";
+
+  document.getElementById("counter").textContent =
+    (current + 1) + " / " + scenes.length;
+
+  const left = document.getElementById("leftCurtain");
+  const right = document.getElementById("rightCurtain");
+
+  left.classList.remove("open");
+  right.classList.remove("open");
+
+  if (scene.curtain) {
+    setTimeout(() => {
+      left.classList.add("open");
+      right.classList.add("open");
+    }, 400);
+  }
+
+  screen.classList.remove("glitch");
+  if (scene.glitch) {
+    setTimeout(() => screen.classList.add("glitch"), 300);
+  }
+
+  if (scene.pop) {
+    setTimeout(() => {
+      const bubble = document.getElementById("bubblePop");
+      if (bubble) bubble.classList.add("pop");
+    }, 700);
+  }
+}
+
+function nextScene() {
+  if (current < scenes.length - 1) {
+    current++;
+    render();
+  }
+}
+
+function previousScene() {
+  if (current > 0) {
+    current--;
+    render();
+  }
+}
+
+document.addEventListener("keydown", function(event) {
+  if (event.key === "ArrowRight" || event.key === " ") nextScene();
+  if (event.key === "ArrowLeft") previousScene();
+});
+
+render();
 </script>
 
 </body>
