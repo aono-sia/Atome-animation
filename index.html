@@ -3,706 +3,150 @@
 <html lang="fr">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="theme-color" content="#030713">
-<title>L’ATOME — Au cœur de la matière</title>
-
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#08051c">
+<title>L'ATOME — Épisode animé</title>
 <style>
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
-
-body {
-  background: #030713;
-  color: white;
-  font-family: Arial, sans-serif;
-  overflow: hidden;
-}
-
-#screen {
-  position: relative;
-  width: 100%;
-  height: 100dvh;
-  min-height: 500px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  overflow: hidden;
-  background: radial-gradient(circle at center, #17365d, #030713 75%);
-  transition: background 1s;
-}
-
-.stars {
-  position: absolute;
-  inset: -100px;
-  pointer-events: none;
-  background-image:
-    radial-gradient(white 1px, transparent 1px),
-    radial-gradient(#70caff 1px, transparent 1px),
-    radial-gradient(#ffffff 1px, transparent 1px);
-  background-size: 65px 65px, 110px 110px, 170px 170px;
-  animation: starMove 35s linear infinite;
-  opacity: .65;
-}
-
-@keyframes starMove {
-  to { transform: translateY(180px); }
-}
-
-#content {
-  position: relative;
-  z-index: 3;
-  width: min(900px, 90%);
-  max-height: 78%;
-  overflow-y: auto;
-  text-align: center;
-  padding: 15px 5px 30px;
-  animation: appear .8s ease;
-}
-
-@keyframes appear {
-  from { opacity: 0; transform: translateY(25px); }
-  to { opacity: 1; transform: translateY(0); }
-}
-
-.eyebrow {
-  color: #75caff;
-  font-size: 12px;
-  letter-spacing: 5px;
-  margin-bottom: 20px;
-}
-
-h1 {
-  font-size: clamp(43px, 12vw, 105px);
-  letter-spacing: 7px;
-  text-shadow: 0 0 15px #168fff, 0 0 45px #168fff;
-}
-
-h2 {
-  font-size: clamp(25px, 6vw, 43px);
-  color: #8bd5ff;
-  margin: 15px 0;
-}
-
-.subtitle {
-  margin-top: 18px;
-  color: #c3dcf7;
-  letter-spacing: 4px;
-  font-size: clamp(11px, 3vw, 17px);
-}
-
-.description {
-  color: #c5d5e9;
-  line-height: 1.8;
-  margin: 20px auto;
-  max-width: 650px;
-  font-size: clamp(14px, 3vw, 18px);
-}
-
-.dialogue {
-  background: #081a30eF;
-  border: 1px solid #348bc5;
-  border-radius: 15px;
-  padding: 18px;
-  margin: 20px auto;
-  max-width: 650px;
-  line-height: 1.8;
-  box-shadow: 0 0 25px #168fff20;
-}
-
-.speaker {
-  color: #77caff;
-  font-weight: bold;
-  letter-spacing: 3px;
-  margin-bottom: 8px;
-}
-
-.character {
-  width: 125px;
-  height: 125px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border-radius: 25px;
-  margin: 15px auto;
-  font-size: 23px;
-  font-weight: bold;
-  letter-spacing: 2px;
-  animation: float 3s ease-in-out infinite;
-  box-shadow: 0 0 35px #0008;
-}
-
-.jax {
-  background: linear-gradient(145deg,#a64cc0,#38104e);
-  border: 2px solid #d38aff;
-}
-
-.bubble {
-  background: radial-gradient(circle at 30% 25%,#e5ffff,#5bdafa,#0877aa);
-  color: #08324b;
-  border-radius: 50%;
-}
-
-.caine {
-  background: linear-gradient(145deg,#fff0dc,#a52e39);
-  color: #4a1018;
-  border: 2px solid #ffb7a4;
-}
-
-.pomni {
-  background: linear-gradient(145deg,#ed5c76,#6d244e);
-  border: 2px solid #ffb1c9;
-}
-
-@keyframes float {
-  0%,100% { transform: translateY(0); }
-  50% { transform: translateY(-12px); }
-}
-
-.model-grid {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 15px;
-  margin: 20px auto;
-}
-
-.model-card {
-  width: min(260px, 100%);
-  padding: 20px;
-  border: 1px solid #3378a8;
-  background: #0b1c32;
-  border-radius: 16px;
-}
-
-.model-card h3 {
-  color: #7bcaff;
-  margin-bottom: 12px;
-}
-
-.model-card p {
-  color: #c6d9eb;
-  font-size: 14px;
-  line-height: 1.7;
-}
-
-.sphere {
-  width: 85px;
-  height: 85px;
-  border-radius: 50%;
-  margin: 12px auto;
-  background: radial-gradient(circle at 30% 25%,#9de6ff,#2678d1,#102d68);
-  box-shadow: 0 0 25px #258fff;
-}
-
-.atom {
-  width: 120px;
-  height: 120px;
-  position: relative;
-  margin: 15px auto;
-}
-
-.nucleus {
-  position: absolute;
-  width: 20px;
-  height: 20px;
-  border-radius: 50%;
-  background: #ff9a43;
-  box-shadow: 0 0 25px #ff732b;
-  top: 50px;
-  left: 50px;
-}
-
-.orbit {
-  position: absolute;
-  width: 120px;
-  height: 44px;
-  border: 2px solid #5abfff;
-  border-radius: 50%;
-  top: 38px;
-  left: 0;
-}
-
-.orbit.a { transform: rotate(60deg); }
-.orbit.b { transform: rotate(-60deg); }
-
-.electron {
-  position: absolute;
-  top: -5px;
-  left: 55px;
-  width: 9px;
-  height: 9px;
-  background: #c7f4ff;
-  border-radius: 50%;
-  box-shadow: 0 0 12px #62caff;
-}
-
-.quantum {
-  width: 125px;
-  height: 125px;
-  border-radius: 50%;
-  margin: 15px auto;
-  background: radial-gradient(circle, #ffffff 2%, #65baff 15%, #2359a4 45%, transparent 72%);
-  box-shadow: 0 0 30px #318bff;
-  animation: pulse 2s infinite alternate;
-}
-
-@keyframes pulse {
-  to { transform: scale(1.15); opacity: .7; }
-}
-
-/* Les rideaux sont cachés par défaut */
-.curtain {
-  position: absolute;
-  z-index: 5;
-  top: 0;
-  bottom: 0;
-  width: 50%;
-  pointer-events: none;
-  background: repeating-linear-gradient(
-    90deg,
-    #51091c,
-    #a91d3e 25px,
-    #650d29 50px
-  );
-  transition: transform 1.7s ease;
-  transform: translateX(-110%);
-}
-
-#leftCurtain { left: 0; }
-#rightCurtain {
-  right: 0;
-  transform: translateX(110%);
-}
-
-.curtain-show#leftCurtain {
-  transform: translateX(0);
-}
-
-.curtain-show#rightCurtain {
-  transform: translateX(0);
-}
-
-.curtain-open#leftCurtain {
-  transform: translateX(-110%);
-}
-
-.curtain-open#rightCurtain {
-  transform: translateX(110%);
-}
-
-#controls {
-  position: absolute;
-  z-index: 10;
-  bottom: 17px;
-  left: 0;
-  width: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 12px;
-}
-
-button {
-  background: #0c3157;
-  color: white;
-  border: 1px solid #55baff;
-  border-radius: 30px;
-  padding: 12px 19px;
-  cursor: pointer;
-  font-size: 12px;
-  letter-spacing: 1px;
-}
-
-button:active {
-  background: #1879bd;
-  transform: scale(.96);
-}
-
-#counter {
-  color: #a9d8fa;
-  font-size: 12px;
-}
-
-#screen.glitch {
-  animation: glitch .3s 4;
-}
-
-@keyframes glitch {
-  0% { transform: translate(0); filter: none; }
-  25% { transform: translate(7px,-3px); filter: hue-rotate(90deg); }
-  50% { transform: translate(-6px,3px); filter: invert(.5); }
-  75% { transform: translate(3px,2px); }
-  100% { transform: translate(0); filter: none; }
-}
-
-.pop {
-  animation: pop .5s forwards;
-}
-
-@keyframes pop {
-  to { transform: scale(0); opacity: 0; }
-}
-
-#screen.flash {
-  animation: flash .5s;
-}
-
-@keyframes flash {
-  50% { filter: brightness(3); }
-}
-
-@media(max-width:500px) {
-  #content { max-height: 75%; }
-  .character { width: 100px; height: 100px; }
-  .model-card { padding: 14px; }
-  button { padding: 10px 13px; font-size: 10px; }
-  #controls { gap: 8px; bottom: 12px; }
-}
+*{box-sizing:border-box}
+html,body{margin:0;width:100%;height:100%;overflow:hidden;background:#08051c;color:white;font-family:Arial,sans-serif}
+#stage{position:relative;width:100%;height:100%;overflow:hidden;background:#08051c}
+#world{position:absolute;width:100%;height:100%;inset:0;transform-origin:center;transition:transform 3s ease,filter .3s}
+#space{position:absolute;inset:0;background:radial-gradient(ellipse at 50% 45%,#172d63,#09091e 55%,#02030d)}
+.star{position:absolute;width:2px;height:2px;background:white;border-radius:50%;animation:twinkle 2s infinite alternate}
+@keyframes twinkle{to{opacity:.2;transform:scale(1.8)}}
+#earth{position:absolute;width:min(45vw,300px);aspect-ratio:1;border-radius:50%;left:50%;top:50%;transform:translate(-50%,-50%);background:radial-gradient(circle at 30% 30%,#78dcff,#1675ae 40%,#08204f 75%);box-shadow:0 0 55px #348fff, inset -25px -20px 35px #020b2d}
+#earth:before{content:"";position:absolute;inset:15%;border-radius:45%;background:#4eb879;clip-path:polygon(10% 15%,45% 0,60% 30%,90% 20%,80% 60%,60% 70%,40% 100%,20% 70%,0 50%)}
+#earth:after{content:"";position:absolute;inset:-10%;border:2px solid #7bdcff;border-radius:50%;opacity:.35}
+#room{position:absolute;inset:0;display:none;background:radial-gradient(ellipse at center,#563b83,#17102f 65%,#08051c)}
+#room:before{content:"";position:absolute;inset:0;background:repeating-linear-gradient(90deg,transparent 0 9%,#ffffff08 9.2% 9.5%)}
+#floor{position:absolute;bottom:-15%;left:-20%;width:140%;height:45%;background:repeating-linear-gradient(90deg,#30204d 0 2px,transparent 2px 70px),repeating-linear-gradient(0deg,#30204d 0 2px,transparent 2px 50px);transform:perspective(250px) rotateX(55deg);background-color:#130e28}
+#curtainL,#curtainR{position:absolute;top:0;height:100%;width:51%;z-index:5;background:repeating-linear-gradient(90deg,#5d092b 0 18px,#a51e4c 19px 38px,#6e1237 39px 56px);transition:transform 2s cubic-bezier(.7,0,.2,1);pointer-events:none}
+#curtainL{left:0;transform:translateX(-110%)}
+#curtainR{right:0;transform:translateX(110%)}
+#curtainL.closed{transform:translateX(0)}
+#curtainR.closed{transform:translateX(0)}
+#title{position:absolute;z-index:4;top:27%;width:100%;text-align:center;opacity:0;transform:scale(.4);transition:all 1.2s}
+#title.show{opacity:1;transform:scale(1)}
+#title h1{font-size:clamp(48px,12vw,110px);letter-spacing:9px;margin:0;text-shadow:0 0 12px #59cfff,0 0 35px #277bff}
+#title p{letter-spacing:5px;color:#d9c7ff}
+#actors{position:absolute;inset:0;z-index:3;pointer-events:none}
+.actor{position:absolute;bottom:12%;width:clamp(115px,24vw,230px);height:clamp(210px,48vw,380px);opacity:0;transform:translateY(80px) scale(.8);transition:all .8s cubic-bezier(.2,.8,.2,1)}
+.actor.visible{opacity:1;transform:translateY(0) scale(1)}
+.actor.left{left:5%}
+.actor.right{right:5%}
+.actor.center{left:50%;transform:translate(-50%,80px) scale(.8)}
+.actor.center.visible{transform:translate(-50%,0) scale(1)}
+.body{position:absolute;bottom:0;left:18%;width:64%;height:58%;border-radius:45% 45% 20% 20%;background:var(--body);border:3px solid #ffffff88}
+.head{position:absolute;top:0;left:12%;width:76%;height:45%;border-radius:45% 45% 40% 40%;background:var(--head);border:3px solid #ffffffaa;box-shadow:inset -10px -10px 20px #0003}
+.eye{position:absolute;top:37%;width:17%;height:21%;border-radius:50%;background:white;border:2px solid #25213a}
+.eye:after{content:"";position:absolute;width:45%;height:55%;left:35%;top:20%;border-radius:50%;background:#17142b}
+.eye.one{left:22%}.eye.two{right:22%}
+.mouth{position:absolute;left:38%;top:69%;width:25%;height:9%;border-bottom:3px solid #28152c;border-radius:50%}
+.hat{position:absolute;top:-15%;left:5%;width:90%;height:25%;background:var(--hat);clip-path:polygon(0 100%,18% 0,80% 0,100% 100%)}
+#jax{--head:#d8d4ee;--body:#9d4bb3;--hat:#8b3a9e}
+#bubble{--head:#a9f3ff;--body:#54bce2;--hat:#ffffff}
+#caine{--head:#fff0d9;--body:#b92f47;--hat:#e7e0d0}
+#pomni{--head:#f5d9c9;--body:#bd426e;--hat:#d94c70}
+#bubble .head{border-radius:50%}
+#bubble .body{border-radius:50%;height:55%;left:20%;width:60%}
+#caine .head{border-radius:48% 48% 35% 35%}
+#dialogue{position:absolute;z-index:8;bottom:5%;left:50%;transform:translateX(-50%);width:min(750px,90%);padding:15px 20px;border:1px solid #9d7cff;border-radius:14px;background:#090b20ed;text-align:center;box-shadow:0 0 25px #8262ff33;opacity:0;transition:opacity .4s;pointer-events:none}
+#dialogue.show{opacity:1}
+#speaker{font-weight:bold;color:#9fe4ff;letter-spacing:3px;margin-bottom:8px}
+#words{font-size:clamp(14px,3vw,19px);line-height:1.5}
+#science{position:absolute;z-index:2;top:10%;left:50%;transform:translateX(-50%);width:min(390px,75%);text-align:center;opacity:0;transition:opacity .7s}
+#science.show{opacity:1}
+#science h2{color:#a6e8ff;font-size:clamp(22px,5vw,34px)}
+#science svg{width:180px;max-width:70%;filter:drop-shadow(0 0 12px #56bfff)}
+#controls{position:absolute;z-index:20;bottom:15px;right:15px;display:flex;gap:8px}
+button{border:1px solid #8f7bff;background:#171335;color:white;border-radius:30px;padding:10px 15px;font-weight:bold}
+#play{position:absolute;z-index:30;left:50%;top:50%;transform:translate(-50%,-50%);border:2px solid #b8a4ff;background:#171335;padding:17px 28px;font-size:16px;box-shadow:0 0 35px #9472ff}
+#blackout{position:absolute;z-index:15;inset:0;background:#000;opacity:0;pointer-events:none;transition:opacity .3s}
+#blackout.on{opacity:1}
+#glitch{position:absolute;z-index:16;inset:0;opacity:0;pointer-events:none;background:repeating-linear-gradient(0deg,#ff00aa33 0 2px,transparent 2px 6px)}
+#glitch.on{opacity:1;animation:glitch .15s infinite}
+@keyframes glitch{0%{transform:translateX(-5px);filter:hue-rotate(90deg)}50%{transform:translateX(5px);filter:invert(.4)}100%{transform:translateX(0)}}
+#subtitle{position:absolute;z-index:10;top:5%;left:0;width:100%;text-align:center;color:#c9baff;font-size:12px;letter-spacing:4px}
+@media(max-width:600px){.actor{bottom:23%;height:250px;width:125px}.actor.left{left:1%}.actor.right{right:1%}#dialogue{bottom:10%;padding:12px}#science{top:8%}}
 </style>
 </head>
-
 <body>
-
-<div id="screen">
-  <div class="stars"></div>
-
-  <div id="content"></div>
-
-  <div class="curtain" id="leftCurtain"></div>
-  <div class="curtain" id="rightCurtain"></div>
-
-  <div id="controls">
-    <button onclick="previousScene()">PRÉCÉDENT</button>
-    <span id="counter">01 / 14</span>
-    <button onclick="nextScene()">SUIVANT</button>
+<div id="stage">
+ <div id="world">
+  <div id="space"></div>
+  <div id="earth"></div>
+  <div id="room"><div id="floor"></div></div>
+  <div id="curtainL"></div><div id="curtainR"></div>
+  <div id="title"><h1>L’ATOME</h1><p>AU CŒUR DE LA MATIÈRE</p></div>
+  <div id="subtitle">UNE AVENTURE SCIENTIFIQUE</div>
+  <div id="science"></div>
+  <div id="actors">
+   <div class="actor left" id="jax"><div class="hat"></div><div class="head"><i class="eye one"></i><i class="eye two"></i><i class="mouth"></i></div><div class="body"></div></div>
+   <div class="actor right" id="bubble"><div class="head"><i class="eye one"></i><i class="eye two"></i><i class="mouth"></i></div><div class="body"></div></div>
+   <div class="actor center" id="caine"><div class="hat"></div><div class="head"><i class="eye one"></i><i class="eye two"></i><i class="mouth"></i></div><div class="body"></div></div>
+   <div class="actor center" id="pomni"><div class="hat"></div><div class="head"><i class="eye one"></i><i class="eye two"></i><i class="mouth"></i></div><div class="body"></div></div>
   </div>
+ </div>
+ <div id="dialogue"><div id="speaker"></div><div id="words"></div></div>
+ <div id="blackout"></div><div id="glitch"></div>
+ <button id="play" onclick="startEpisode()">▶ REGARDER L'ÉPISODE</button>
+ <div id="controls"><button onclick="previous()">◀</button><button onclick="togglePause()" id="pause">Ⅱ</button><button onclick="next()">▶</button></div>
 </div>
-
 <script>
-const scenes = [
-
-{
-bg: "radial-gradient(circle,#15365f,#030713 75%)",
-html: `
-<div class="eyebrow">UNE AVENTURE COMMENCE...</div>
-<h1>UNIVERS</h1>
-<p class="description">Au milieu de l'immensité de l'espace, une découverte nous attend.</p>
-<div style="font-size:75px">✨ 🌌 ✨</div>
-`
-},
-
-{
-bg: "radial-gradient(circle,#15547a,#030713)",
-html: `
-<div class="eyebrow">NOTRE PLANÈTE</div>
-<h2>LA TERRE</h2>
-<div style="font-size:110px;animation:float 4s infinite">🌍</div>
-<p class="description">C'est ici que commence notre voyage au cœur de la matière.</p>
-`
-},
-
-{
-bg: "radial-gradient(circle,#421653,#030713)",
-html: `
-<div class="character jax">JAX</div>
-<h2>Bonjour tout le monde !</h2>
-<div class="dialogue">
-<div class="speaker">JAX</div>
-Bienvenue dans notre incroyable voyage au cœur de la matière !
-</div>
-`
-},
-
-{
-bg: "radial-gradient(circle,#37101e,#030713)",
-curtain: true,
-html: `
-<div class="eyebrow">PRÉSENTE</div>
-<h1>L’ATOME</h1>
-<p class="subtitle">AU CŒUR DE LA MATIÈRE</p>
-<p class="description">L'histoire de notre compréhension de l'infiniment petit.</p>
-`
-},
-
-{
-bg: "radial-gradient(circle,#125276,#030713)",
-html: `
-<div class="character bubble">BUBBLE</div>
-<div class="dialogue">
-<div class="speaker">BUBBLE</div>
-Jax ! On commence par Schrödinger ? C'est mon préféré !
-</div>
-`
-},
-
-{
-bg: "radial-gradient(circle,#351346,#030713)",
-pop: true,
-html: `
-<div class="character bubble" id="bubblePop">BUBBLE</div>
-<h2>POP !</h2>
-<div class="dialogue">
-<div class="speaker">JAX</div>
-Bon... assez de distractions ! Commençons par une question simple : qu'est-ce qu'un atome ?
-</div>
-`
-},
-
-{
-bg: "radial-gradient(circle,#15365e,#030713)",
-html: `
-<div class="character jax">JAX</div>
-<h2>John Dalton</h2>
-<div class="model-grid">
-<div class="model-card">
-<h3>La sphère solide</h3>
-<div class="sphere"></div>
-<p>Dans son modèle historique, Dalton considère l'atome comme une sphère solide, indivisible et indestructible.</p>
-</div>
-</div>
-<div class="dialogue">
-<div class="speaker">JAX</div>
-Pour Dalton, toute matière est constituée de minuscules atomes !
-</div>
-`
-},
-
-{
-bg: "radial-gradient(circle,#15365e,#030713)",
-html: `
-<div class="character jax">JAX</div>
-<h2>J. J. Thomson</h2>
-<div class="model-grid">
-<div class="model-card">
-<h3>Le modèle de Thomson</h3>
-<div style="font-size:55px">🟠</div>
-<p>Des électrons négatifs sont répartis dans une sphère de matière chargée positivement.</p>
-</div>
-</div>
-<div class="dialogue">
-<div class="speaker">JAX</div>
-Thomson découvre l'électron et propose un nouveau modèle atomique !
-</div>
-`
-},
-
-{
-bg: "radial-gradient(circle,#692322,#030713)",
-html: `
-<div class="character caine">CAINE</div>
-<h2>JAX ! DEHORS !</h2>
-<div class="dialogue">
-<div class="speaker">CAINE</div>
-Merci pour cette présentation ! Maintenant, laissez-moi continuer !
-</div>
-<p class="description">Caine chasse Jax de la scène et prend sa place.</p>
-<div style="font-size:35px">🏃‍♂️</div>
-`
-},
-
-{
-bg: "radial-gradient(circle,#163d63,#030713)",
-html: `
-<div class="character caine">CAINE</div>
-<h2>Ernest Rutherford</h2>
-<div class="model-grid">
-<div class="model-card">
-<h3>Le noyau atomique</h3>
-<div class="atom">
-<div class="orbit"></div>
-<div class="nucleus"></div>
-</div>
-<p>Un petit noyau positif au centre. L'atome est essentiellement constitué de vide.</p>
-</div>
-</div>
-<div class="dialogue">
-<div class="speaker">CAINE</div>
-Rutherford met en évidence l'existence du noyau atomique !
-</div>
-`
-},
-
-{
-bg: "radial-gradient(circle,#163d63,#030713)",
-html: `
-<div class="character caine">CAINE</div>
-<h2>Niels Bohr</h2>
-<div class="model-grid">
-<div class="model-card">
-<h3>Les niveaux d'énergie</h3>
-<div class="atom">
-<div class="orbit"></div>
-<div class="orbit a"></div>
-<div class="nucleus"></div>
-</div>
-<p>Les électrons occupent des niveaux d'énergie bien définis.</p>
-</div>
-</div>
-<div class="dialogue">
-<div class="speaker">CAINE</div>
-Bohr améliore le modèle atomique en introduisant les niveaux d'énergie !
-</div>
-`
-},
-
-{
-bg: "radial-gradient(circle,#125276,#030713)",
-html: `
-<div class="character bubble">BUBBLE</div>
-<div class="dialogue">
-<div class="speaker">BUBBLE</div>
-Caine ! Caine ! Et Schrödinger ? On va parler de Schrödinger ?!
-</div>
-<h2>Encore toi ?!</h2>
-<p class="description">Bubble revient et interrompt la présentation une nouvelle fois.</p>
-`
-},
-
-{
-bg: "radial-gradient(circle,#64202b,#030713)",
-glitch: true,
-html: `
-<div class="character caine">CAINE</div>
-<h2>ÇA SUFFIT !</h2>
-<div class="dialogue">
-<div class="speaker">CAINE</div>
-Dehors, Bubble ! Laissez-moi terminer !
-</div>
-<p class="description">Caine chasse Bubble, puis frappe l'écran dans un accès de colère...</p>
-<div style="font-size:45px">⚡</div>
-`
-},
-
-{
-bg: "radial-gradient(circle,#4a1941,#030713)",
-html: `
-<div class="character pomni">POMNI</div>
-<h2>Bonjour... euh... tout le monde !</h2>
-<div class="dialogue">
-<div class="speaker">POMNI</div>
-Attendez... Je vais essayer de réparer cet écran.
-</div>
-<p class="description">Pomni rétablit l'affichage et remet le spectacle en marche.</p>
-`
-},
-
-{
-bg: "radial-gradient(circle,#1c3d75,#030713)",
-html: `
-<div class="character jax">JAX</div>
-<div class="dialogue">
-<div class="speaker">JAX</div>
-Bon, nous étions justement sur le point de découvrir Schrödinger...
-</div>
-<div class="character pomni">POMNI</div>
-<h2>Erwin Schrödinger</h2>
-<div class="model-grid">
-<div class="model-card">
-<h3>Le modèle quantique</h3>
-<div class="quantum"></div>
-<p>Les électrons sont décrits par une fonction d'onde. Les orbitales représentent des régions où leur présence est probable.</p>
-</div>
-</div>
-<div class="dialogue">
-<div class="speaker">POMNI</div>
-Dans ce modèle, on ne décrit plus les électrons comme de petites planètes suivant des orbites précises !
-</div>
-`
-},
-
-{
-bg: "radial-gradient(circle,#143e68,#030713)",
-html: `
-<div class="eyebrow">FIN DE L'EXPLORATION</div>
-<h1>L’ATOME</h1>
-<p class="subtitle">AU CŒUR DE LA MATIÈRE</p>
-<div class="atom">
-<div class="orbit"></div>
-<div class="orbit a"></div>
-<div class="orbit b"></div>
-<div class="nucleus"></div>
-</div>
-<h2>Merci pour votre attention !</h2>
-<p class="description">De Dalton à Schrödinger, notre compréhension de l'atome a évolué au fil des découvertes scientifiques.</p>
-`
-}
-
+const $=id=>document.getElementById(id);
+const world=$("world");
+let index=0,timer=null,paused=false,started=false,token=0;
+const scenes=[
+ {time:5000,action:()=>{ $("space").style.display="block";$("earth").style.display="block";camera("scale(1.5)");say("NARRATEUR","Au-delà des étoiles, une aventure nous attend...");}},
+ {time:5000,action:()=>{camera("scale(4)");say("NARRATEUR","Notre voyage nous conduit vers la Terre, au cœur de la matière.");}},
+ {time:5000,action:()=>{ $("room").style.display="block";$("space").style.display="none";$("earth").style.display="none";camera("scale(1)");show("jax");say("JAX","Salut tout le monde ! Bienvenue dans notre incroyable aventure !");}},
+ {time:5000,action:()=>{hideAll();$("curtainL").classList.add("closed");$("curtainR").classList.add("closed");say("NARRATEUR","Mesdames et messieurs... L'ATOME !");}},
+ {time:5000,action:()=>{ $("curtainL").classList.remove("closed");$("curtainR").classList.remove("closed");$("title").classList.add("show");say("NARRATEUR","Au cœur de la matière !");}},
+ {time:5000,action:()=>{ $("title").classList.remove("show");show("jax");show("bubble");say("BUBBLE","Jax ! On peut commencer par Schrödinger ? C'est mon préféré !");}},
+ {time:3500,action:()=>{hide("bubble");say("JAX","Pop ! Pas si vite ! On commence par les bases !");}},
+ {time:7000,action:()=>{show("jax");science("DALTON", "Sphère solide, indivisible et sans structure interne dans son modèle historique.", "solid");say("JAX","Dalton imagine l'atome comme une petite sphère solide et indivisible !");}},
+ {time:7000,action:()=>{science("THOMSON","Des électrons négatifs sont répartis dans une matière chargée positivement.","thomson");say("JAX","Thomson découvre l'électron et propose un modèle où il est intégré dans une matière positive !");}},
+ {time:4500,action:()=>{hide("jax");scienceOff();show("caine");say("CAINE","JAX ! Merci, c'est terminé pour toi ! Maintenant, c'est à moi !");}},
+ {time:7000,action:()=>{science("RUTHERFORD","Un petit noyau positif au centre ; l'atome est essentiellement constitué de vide.","nucleus");say("CAINE","Rutherford révèle l'existence d'un noyau central positif !");}},
+ {time:7000,action:()=>{science("BOHR","Les électrons occupent des niveaux d'énergie quantifiés.","bohr");say("CAINE","Bohr propose des niveaux d'énergie bien définis pour les électrons !");}},
+ {time:4500,action:()=>{scienceOff();show("bubble");say("BUBBLE","Caine ! Et Schrödinger ? On a oublié Schrödinger !");}},
+ {time:4000,action:()=>{hide("bubble");say("CAINE","ÇA SUFFIT ! Dehors, Bubble !");}},
+ {time:2500,action:()=>{ $("glitch").classList.add("on");say("NARRATEUR","ERREUR SYSTÈME...");}},
+ {time:2500,action:()=>{$("blackout").classList.add("on");}},
+ {time:5000,action:()=>{$("blackout").classList.remove("on");$("glitch").classList.remove("on");hide("caine");show("pomni");say("POMNI","Bonjour... Attendez, je vais réparer cet écran !");}},
+ {time:5000,action:()=>{show("jax");say("JAX","On allait justement parler de Schrödinger...");}},
+ {time:8500,action:()=>{hide("jax");science("SCHRÖDINGER","La fonction d'onde décrit l'état quantique. Les orbitales indiquent les régions de probabilité de présence de l'électron.","quantum");say("POMNI","Le modèle quantique ne donne pas une trajectoire précise à l'électron. Il décrit les probabilités de sa présence !");}},
+ {time:6000,action:()=>{hideAll();scienceOff();$("title").classList.add("show");say("NARRATEUR","De Dalton à Schrödinger, notre vision de l'atome a changé. Merci d'avoir voyagé avec nous !");}}
 ];
-
-let current = 0;
-
-function render() {
-  const scene = scenes[current];
-  const screen = document.getElementById("screen");
-  const content = document.getElementById("content");
-  const left = document.getElementById("leftCurtain");
-  const right = document.getElementById("rightCurtain");
-
-  content.style.animation = "none";
-  content.offsetHeight;
-  content.style.animation = "appear .8s ease";
-  content.innerHTML = scene.html;
-
-  screen.style.background = scene.bg;
-  screen.classList.remove("glitch", "flash");
-
-  left.className = "curtain";
-  right.className = "curtain";
-
-  if (scene.curtain) {
-    left.classList.add("curtain-show");
-    right.classList.add("curtain-show");
-
-    setTimeout(() => {
-      if (current === 3) {
-        left.classList.add("curtain-open");
-        right.classList.add("curtain-open");
-      }
-    }, 800);
-  }
-
-  if (scene.pop) {
-    setTimeout(() => {
-      const bubble = document.getElementById("bubblePop");
-      if (bubble) bubble.classList.add("pop");
-    }, 900);
-  }
-
-  if (scene.glitch) {
-    setTimeout(() => {
-      screen.classList.add("glitch", "flash");
-    }, 400);
-  }
-
-  document.getElementById("counter").textContent =
-    String(current + 1).padStart(2, "0") + " / " + scenes.length;
+function camera(t){world.style.transform=t}
+function show(id){$(id).classList.add("visible")}
+function hide(id){$(id).classList.remove("visible")}
+function hideAll(){["jax","bubble","caine","pomni"].forEach(hide)}
+function say(w,t){$("speaker").textContent=w;$("words").textContent=t;$("dialogue").classList.add("show")}
+function scienceOff(){$("science").classList.remove("show")}
+function science(name,desc,kind){
+ let drawing="";
+ if(kind==="solid")drawing='<circle cx="90" cy="90" r="48" fill="#5ebfff" stroke="white" stroke-width="3"/>';
+ if(kind==="thomson")drawing='<circle cx="90" cy="90" r="48" fill="#e8a34c"/>'+[0,1,2,3,4,5].map((n)=>`<circle cx="${55+n%3*32}" cy="${60+Math.floor(n/3)*60}" r="7" fill="#163cbd"/>`).join("");
+ if(kind==="nucleus"||kind==="bohr")drawing='<circle cx="90" cy="90" r="11" fill="#ffb05c"/><ellipse cx="90" cy="90" rx="75" ry="30" fill="none" stroke="#65cfff" stroke-width="3"/>';
+ if(kind==="quantum")drawing='<circle cx="90" cy="90" r="58" fill="#347fe0" opacity=".25"/><circle cx="90" cy="90" r="35" fill="#7ddfff" opacity=".4"/><circle cx="90" cy="90" r="13" fill="white"/>';
+ $("science").innerHTML=`<h2>${name}</h2><svg viewBox="0 0 180 180">${drawing}</svg><p>${desc}</p>`;
+ $("science").classList.add("show");
 }
-
-function nextScene() {
-  if (current < scenes.length - 1) {
-    current++;
-    render();
-  }
+function run(){
+ if(paused||!started)return;
+ if(index>=scenes.length){clearTimeout(timer);return}
+ const my=++token;
+ scenes[index].action();
+ $("subtitle").textContent="L'ATOME — SCÈNE "+(index+1);
+ timer=setTimeout(()=>{if(my===token&&!paused){index++;run()}},scenes[index].time);
 }
-
-function previousScene() {
-  if (current > 0) {
-    current--;
-    render();
-  }
-}
-
-document.addEventListener("keydown", event => {
-  if (event.key === "ArrowRight" || event.key === " ") nextScene();
-  if (event.key === "ArrowLeft") previousScene();
-});
-
-render();
+function startEpisode(){if(started)return;started=true;$("play").style.display="none";run()}
+function next(){if(!started){startEpisode();return}clearTimeout(timer);token++;index=Math.min(index+1,scenes.length-1);run()}
+function previous(){if(!started)return;clearTimeout(timer);token++;index=Math.max(0,index-1);run()}
+function togglePause(){paused=!paused;$("pause").textContent=paused?"▶":"Ⅱ";if(!paused)run();else clearTimeout(timer)}
+document.addEventListener("keydown",e=>{if(e.key==="ArrowRight")next();if(e.key==="ArrowLeft")previous();if(e.key===" "){e.preventDefault();togglePause()}});
+for(let i=0;i<85;i++){let s=document.createElement("i");s.className="star";s.style.left=Math.random()*100+"%";s.style.top=Math.random()*100+"%";s.style.animationDelay=Math.random()*3+"s";$("space").appendChild(s)}
 </script>
-
 </body>
-  </html>
-  
+</html>
