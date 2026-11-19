@@ -1,0 +1,205 @@
+
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>L’ATOME — Au cœur de la matière</title>
+
+<style>
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background: #030713;
+  color: white;
+  font-family: Arial, sans-serif;
+  overflow: hidden;
+}
+
+.scene {
+  width: 100%;
+  height: 100vh;
+  min-height: 500px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  overflow: hidden;
+  background:
+    radial-gradient(ellipse at center, #10264c 0%, #071126 45%, #02040c 100%);
+}
+
+.stars {
+  position: absolute;
+  inset: 0;
+  background-image:
+    radial-gradient(white 1px, transparent 1px),
+    radial-gradient(#70bfff 1px, transparent 1px);
+  background-size: 75px 75px, 113px 113px;
+  animation: stars 35s linear infinite;
+  opacity: .55;
+}
+
+@keyframes stars {
+  from { transform: translateY(0); }
+  to { transform: translateY(150px); }
+}
+
+.eyebrow {
+  color: #76caff;
+  letter-spacing: 7px;
+  font-size: 12px;
+  margin-bottom: 22px;
+}
+
+h1 {
+  font-size: clamp(48px, 12vw, 110px);
+  letter-spacing: 8px;
+  text-align: center;
+  text-shadow: 0 0 25px #168fff;
+  animation: reveal 2s ease both;
+}
+
+.subtitle {
+  margin-top: 18px;
+  color: #a9c8ed;
+  letter-spacing: 4px;
+  text-align: center;
+  font-size: clamp(12px, 3vw, 17px);
+}
+
+.atom {
+  position: relative;
+  width: 190px;
+  height: 190px;
+  margin-bottom: 35px;
+  animation: float 4s ease-in-out infinite;
+}
+
+.nucleus {
+  position: absolute;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background: #ff9c46;
+  box-shadow: 0 0 30px #ff6b20;
+  top: 83px;
+  left: 83px;
+}
+
+.orbit {
+  position: absolute;
+  width: 180px;
+  height: 65px;
+  border: 2px solid #42baff;
+  border-radius: 50%;
+  top: 62px;
+  left: 5px;
+  box-shadow: 0 0 12px #168fff;
+}
+
+.orbit.one { transform: rotate(0deg); }
+.orbit.two { transform: rotate(60deg); }
+.orbit.three { transform: rotate(-60deg); }
+
+.electron {
+  width: 10px;
+  height: 10px;
+  position: absolute;
+  background: #a5eaff;
+  border-radius: 50%;
+  box-shadow: 0 0 15px #42baff;
+  top: -5px;
+  left: 85px;
+}
+
+@keyframes float {
+  0%,100% { transform: translateY(0); }
+  50% { transform: translateY(-12px); }
+}
+
+@keyframes reveal {
+  from { opacity: 0; transform: translateY(25px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+button {
+  margin-top: 42px;
+  padding: 14px 35px;
+  background: transparent;
+  border: 1px solid #48baff;
+  color: white;
+  letter-spacing: 3px;
+  cursor: pointer;
+  transition: .3s;
+}
+
+button:hover {
+  background: #168fff;
+  box-shadow: 0 0 25px #168fff;
+}
+
+#intro {
+  position: absolute;
+  inset: 0;
+  background: #02040c;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  z-index: 5;
+  text-align: center;
+  transition: opacity 1s;
+}
+
+#intro.hidden {
+  opacity: 0;
+  pointer-events: none;
+}
+
+#intro p {
+  color: #80caff;
+  letter-spacing: 5px;
+  margin-top: 15px;
+}
+</style>
+</head>
+
+<body>
+
+<div class="scene">
+  <div class="stars"></div>
+
+  <div id="intro">
+    <div class="eyebrow">UNE EXPLORATION SCIENTIFIQUE</div>
+    <h1>L’ATOME</h1>
+    <p>AU CŒUR DE LA MATIÈRE</p>
+    <button onclick="start()">COMMENCER</button>
+  </div>
+
+  <div class="atom">
+    <div class="orbit one"><span class="electron"></span></div>
+    <div class="orbit two"><span class="electron"></span></div>
+    <div class="orbit three"><span class="electron"></span></div>
+    <div class="nucleus"></div>
+  </div>
+
+  <div class="eyebrow">BIENVENUE DANS L’INFINIMENT PETIT</div>
+  <h1>L’ATOME</h1>
+  <p class="subtitle">AU CŒUR DE LA MATIÈRE</p>
+</div>
+
+<script>
+function start() {
+  document.getElementById("intro").classList.add("hidden");
+}
+</script>
+
+</body>
+  </html>
+  
