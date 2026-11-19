@@ -1,0 +1,25 @@
+
+const scenes = [
+  "Dalton",
+  "Thomson",
+  "Rutherford",
+  "Bohr",
+  "Schrödinger"
+];
+
+let currentScene = 0;
+
+function nextScene() {
+  if (currentScene < scenes.length - 1) {
+    currentScene++;
+  }
+  return scenes[currentScene];
+}
+
+function startPresentation() {
+  currentScene = 0;
+  return scenes[currentScene];
+}
+
+console.log("Bienvenue dans L’ATOME !");
+  
