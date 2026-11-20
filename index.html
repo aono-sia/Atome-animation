@@ -3,254 +3,480 @@
 <html lang="fr">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="viewport" content="width=device-width,initial-scale=1">
 <title>L’ATOME — Au cœur de la matière</title>
 <style>
-:root{--bg:#090b20;--purple:#9b65ff;--cyan:#5ceaff;--pink:#ff6fbd}
 *{box-sizing:border-box}
-body{margin:0;background:var(--bg);color:white;font-family:Arial,sans-serif;overflow-x:hidden}
-button{cursor:pointer;border:0;border-radius:12px;padding:12px 18px;font-weight:bold}
-#intro{position:fixed;inset:0;z-index:10;background:radial-gradient(circle,#263b75,#070817 65%);display:grid;place-items:center;text-align:center;padding:24px}
-#intro h1{font-size:clamp(35px,8vw,75px);margin:0;color:#fff;text-shadow:0 0 25px #8e68ff}
-#intro p{color:#cbd4ff}
-#start{background:var(--purple);color:white;font-size:18px}
-#stage{min-height:100vh;position:relative;overflow:hidden;background:radial-gradient(ellipse at 50% 20%,#26346a 0,#111735 45%,#080a18 100%)}
-.stars{position:absolute;inset:0;opacity:.7;background-image:radial-gradient(white 1px,transparent 1px);background-size:47px 47px;animation:stars 18s linear infinite}
-@keyframes stars{to{background-position:100px 150px}}
-#top{position:relative;z-index:2;padding:18px;display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap}
-#sceneTitle{color:#b9c5ff;font-size:13px;letter-spacing:2px}
-#screen{position:relative;z-index:1;min-height:66vh;display:flex;align-items:center;justify-content:center;padding:20px}
-#cast{display:flex;align-items:end;justify-content:center;gap:clamp(8px,4vw,48px);flex-wrap:wrap;min-height:220px}
-.person{position:relative;width:clamp(90px,17vw,145px);height:190px;display:flex;align-items:end;justify-content:center;animation:bob 2s ease-in-out infinite}
-@keyframes bob{50%{transform:translateY(-9px)}}
-.body{width:90px;height:110px;border-radius:45% 45% 25% 25%;position:absolute;bottom:0;box-shadow:inset -9px -8px #0003,0 0 25px #fff2}
-.head{width:90px;height:85px;border-radius:48%;position:absolute;bottom:92px;display:grid;place-items:center;border:3px solid #ffffff40}
-.eyes{font-size:26px;color:#17152a;letter-spacing:5px}
-.jax .body,.jax .head{background:#a66be9}
-.jax .ear{position:absolute;bottom:165px;width:25px;height:80px;background:#a66be9;border-radius:50%;z-index:0}
-.jax .ear.one{left:24px;transform:rotate(-13deg)}
-.jax .ear.two{right:20px;transform:rotate(13deg)}
-.bubble .body{width:0;height:0}
-.bubble .head{background:#58dafa;border-radius:50%;width:95px;height:95px;bottom:65px;box-shadow:0 0 25px #58dafa88}
-.caine .head{background:#fff0dc;border-radius:45%;width:105px;height:88px;bottom:92px}
-.caine .head:after{content:"";position:absolute;inset:12px 8px;border:5px solid #e84b62;border-radius:30%;clip-path:polygon(0 0,100% 0,100% 100%,0 100%)}
-.caine .body{background:#d94b66}
-.pomni .head{background:#f5d5c0;border-radius:45%}
-.pomni .body{background:#e64c68}
-.pomni .hat{position:absolute;bottom:160px;width:110px;height:45px;background:linear-gradient(90deg,#e74c68 50%,#3975d8 50%);clip-path:polygon(0 100%,10% 0,50% 50%,90% 0,100% 100%)}
-.ragatha .head{background:#f3c9a9}
-.ragatha .body{background:#b94b5b}
-.ragatha .hair{position:absolute;bottom:135px;width:110px;height:75px;background:#c94355;border-radius:50% 50% 20% 20%;z-index:-1}
-.person.speaking{filter:drop-shadow(0 0 15px #fff);transform:scale(1.05)}
-.person.speaking .head{animation:talk .16s infinite alternate}
-@keyframes talk{to{transform:scaleY(.93)}}
-#dialogue{position:relative;z-index:2;width:min(900px,92%);margin:0 auto 30px;background:#101735dd;border:1px solid #ffffff25;border-radius:20px;padding:20px;backdrop-filter:blur(10px);min-height:130px}
-#speaker{color:#8deaff;font-weight:bold;margin-bottom:8px}
-#subtitle{font-size:clamp(17px,3vw,23px);line-height:1.5}
-#model{display:none;max-width:850px;width:95%;margin:15px auto;padding:20px;border-radius:18px;background:#ffffff12;text-align:center}
-#model h2{color:#8deaff}
-.atom{margin:15px auto;width:150px;height:150px;border:2px dashed #8deaff;border-radius:50%;position:relative;display:grid;place-items:center}
-.nucleus{width:35px;height:35px;background:#ff6b8c;border-radius:50%;box-shadow:0 0 18px #ff6b8c}
-.electron{position:absolute;width:12px;height:12px;background:#5ceaff;border-radius:50%;top:0;left:68px;box-shadow:0 0 12px #5ceaff;animation:orbit 2s linear infinite;transform-origin:7px 75px}
-@keyframes orbit{to{transform:rotate(360deg)}}
-#controls{display:flex;justify-content:center;gap:12px;flex-wrap:wrap;padding:0 15px 28px;position:relative;z-index:3}
-#controls button{background:#242d59;color:white}
-#controls button.primary{background:var(--purple)}
-#chat{position:relative;z-index:3;width:min(850px,94%);margin:25px auto 45px;background:#111a38;border:1px solid #ffffff25;border-radius:18px;padding:18px}
-#chat h2{margin-top:0;color:#c9b3ff}
-#messages{height:220px;overflow:auto;background:#080d20;border-radius:12px;padding:12px;margin-bottom:12px}
-.msg{padding:9px 12px;margin:7px 0;border-radius:12px;line-height:1.4;max-width:95%}
-.msg.user{background:#343b73;margin-left:auto}
-.msg.jax{background:#292044}
-#chatForm{display:flex;gap:8px}
-#question{min-width:0;flex:1;padding:13px;border-radius:10px;border:1px solid #6672aa;background:#080d20;color:white}
-#chatForm button{background:var(--purple);color:white}
-footer{text-align:center;color:#8d96bd;padding:20px}
-.hidden{display:none!important}
-@media(max-width:500px){.person{height:150px;width:80px}.body{transform:scale(.8);transform-origin:bottom}.head{transform:scale(.8);transform-origin:bottom}.jax .ear{transform:scale(.8)}#dialogue{padding:15px}}
+body{margin:0;background:#080b20;color:#fff;font-family:Arial,sans-serif}
+button{border:0;border-radius:12px;padding:12px 17px;font-weight:bold;cursor:pointer}
+#intro{position:fixed;inset:0;z-index:10;display:grid;place-items:center;text-align:center;background:radial-gradient(circle,#303e80,#080b20 70%);padding:25px}
+#intro h1{font-size:clamp(42px,10vw,85px);color:#a88aff;text-shadow:0 0 30px #9564ff}
+#intro button,.main{background:#9564ff;color:white}
+#app{display:none}
+header{padding:17px;display:flex;justify-content:space-between;align-items:center;gap:10px;background:#101735}
+header small{color:#aeb9eb}
+#progress{height:4px;background:#252b4e}
+#bar{height:4px;background:#9a70ff;width:0;transition:.4s}
+#stage{min-height:440px;position:relative;overflow:hidden;display:flex;align-items:center;justify-content:center;padding:25px;background:radial-gradient(ellipse at center,#26346b,#10152e 65%,#080b20)}
+.stars{position:absolute;inset:0;background-image:radial-gradient(#fff 1px,transparent 1px);background-size:47px 47px;opacity:.5;animation:star 35s linear infinite}
+@keyframes star{to{background-position:200px 250px}}
+#visual{position:relative;z-index:1;width:min(700px,100%);min-height:330px;display:grid;place-items:center;text-align:center}
+#visual h2{font-size:clamp(24px,5vw,38px);color:#a9eaff}
+#visual p{color:#d9e2ff;line-height:1.7}
+#visual img{max-width:180px;max-height:260px;object-fit:contain}
+.character{width:130px;height:220px;object-fit:contain;filter:drop-shadow(0 0 15px #a98aff)}
+#diagram{width:min(330px,85vw);height:300px;position:relative;margin:10px auto}
+#diagram canvas{width:100%;height:100%}
+#caption{position:relative;margin:-10px auto 20px;width:min(850px,94%);padding:20px;background:#121a3c;border:1px solid #424c7c;border-radius:18px;line-height:1.8}
+#speaker{font-weight:bold;color:#8deaff;letter-spacing:1px;margin-bottom:9px}
+#dialogue{font-size:clamp(17px,3.7vw,22px)}
+#explanation{width:min(850px,94%);margin:20px auto;background:#101735;border-radius:18px;padding:20px;line-height:1.8}
+#explanation h2{color:#a98aff}
+#explanation h3{color:#8deaff}
+#explanation p{color:#e0e6ff}
+#controls{display:flex;justify-content:center;gap:10px;flex-wrap:wrap;padding:12px}
+#controls button{background:#252e59;color:white}
+#controls .main{background:#9564ff}
+#sceneList{display:flex;gap:8px;overflow-x:auto;padding:14px}
+#sceneList button{white-space:nowrap;background:#20294e;color:#dce4ff}
+#sceneList button.active{background:#9564ff;color:white}
+#quiz{width:min(850px,94%);margin:25px auto;padding:20px;background:#141b3b;border-radius:18px}
+#quiz h2{color:#a98aff}
+.answer{display:block;width:100%;margin:8px 0;background:#26315c;color:white;text-align:left}
+#feedback{color:#8deaff;min-height:28px}
+#chat{width:min(850px,94%);margin:25px auto;padding:20px;background:#141b3b;border-radius:18px}
+#chat h2{color:#a98aff}
+#messages{height:180px;overflow:auto;background:#090e25;border-radius:12px;padding:10px;margin-bottom:10px}
+.msg{padding:10px;margin:7px 0;border-radius:10px;background:#292044}
+.msg.user{background:#303c73;text-align:right}
+#chat form{display:flex;gap:8px}
+#question{flex:1;min-width:0;padding:12px;border-radius:10px;border:1px solid #59658d;background:#090e25;color:white}
+#chat form button{background:#9564ff;color:white}
+footer{text-align:center;color:#8792bd;padding:25px}
+@media(max-width:500px){#stage{min-height:360px}#visual{min-height:270px}#diagram{height:250px}}
 </style>
 </head>
 <body>
+
 <div id="intro">
  <div>
-  <p>UN VOYAGE AU CŒUR DE LA MATIÈRE</p>
+  <p>UNE AVENTURE SCIENTIFIQUE</p>
   <h1>L’ATOME</h1>
-  <p>Une aventure scientifique pas comme les autres…</p>
-  <button id="start">COMMENCER L’ÉPISODE ▶</button>
+  <h2>Au cœur de la matière</h2>
+  <p>Préparez-vous à découvrir les secrets de la matière !</p>
+  <button class="main" onclick="start()">COMMENCER ▶</button>
  </div>
 </div>
 
-<main id="stage">
+<div id="app">
+<header>
+ <strong>L’ATOME</strong>
+ <small id="sceneNumber">SCÈNE 1</small>
+</header>
+<div id="progress"><div id="bar"></div></div>
+
+<section id="stage">
  <div class="stars"></div>
- <header id="top">
-  <strong>L’ATOME — Au cœur de la matière</strong>
-  <span id="sceneTitle">SCÈNE 01</span>
- </header>
- <section id="screen">
-  <div id="cast"></div>
- </section>
- <section id="model">
-  <h2 id="modelName"></h2>
-  <p id="modelText"></p>
-  <div class="atom"><div class="nucleus"></div><div class="electron"></div></div>
- </section>
- <section id="dialogue">
-  <div id="speaker">JAX</div>
-  <div id="subtitle">Prêts pour une petite leçon ?</div>
- </section>
- <nav id="controls">
-  <button class="primary" id="play">▶ Lecture</button>
-  <button id="pause">Ⅱ Pause</button>
-  <button id="next">Passer la scène →</button>
-  <button id="sound">🔊 Son activé</button>
- </nav>
-</main>
+ <div id="visual"></div>
+</section>
+
+<section id="caption">
+ <div id="speaker">JAX</div>
+ <div id="dialogue"></div>
+</section>
+
+<section id="explanation">
+ <h2 id="exTitle">Bienvenue !</h2>
+ <div id="exText"></div>
+</section>
+
+<nav id="controls">
+ <button class="main" onclick="play()">▶ Écouter</button>
+ <button onclick="pause()">Ⅱ Pause</button>
+ <button onclick="previous()">← Précédent</button>
+ <button onclick="next()">Suivant →</button>
+ <button onclick="toggleSound()" id="soundButton">🔊 Son activé</button>
+</nav>
+
+<div id="sceneList"></div>
+
+<section id="quiz">
+ <h2>🎓 Petit défi scientifique</h2>
+ <p id="quizQuestion">Selon Dalton, comment était représenté l’atome ?</p>
+ <div id="answers"></div>
+ <div id="feedback"></div>
+</section>
 
 <section id="chat">
  <h2>💬 Discute avec Jax AI</h2>
- <div id="messages"><div class="msg jax">Salut ! Pose-moi une question sur les modèles atomiques. Essaie de me surprendre.</div></div>
+ <div id="messages">
+  <div class="msg">Salut ! Pose-moi une question sur l'atome.</div>
+ </div>
  <form id="chatForm">
-  <input id="question" placeholder="Écris ta question en français…" maxlength="1000" required>
+  <input id="question" placeholder="Écris ta question..." required maxlength="1000">
   <button type="submit">Envoyer</button>
  </form>
- <p style="color:#9da8d2;font-size:12px">Jax AI répond aux questions sur le cours de l’atome.</p>
+ <small>La connexion à une IA réelle nécessite un serveur sécurisé.</small>
 </section>
-<footer>Projet pédagogique — L’ATOME</footer>
+<footer>Projet scolaire — L’ATOME</footer>
+</div>
 
 <script>
-const cast=document.getElementById("cast");
-const speaker=document.getElementById("speaker");
-const subtitle=document.getElementById("subtitle");
-const sceneTitle=document.getElementById("sceneTitle");
-const model=document.getElementById("model");
-const modelName=document.getElementById("modelName");
-const modelText=document.getElementById("modelText");
-const voices={JAX:{pitch:0.75,rate:1.08},BUBBLE:{pitch:1.45,rate:1.12},CAINE:{pitch:1.18,rate:1.04},POMNI:{pitch:1.05,rate:.94},RAGATHA:{pitch:1.12,rate:.96}};
-let scene=0,playing=false,muted=false,timeout=null;
+/*
+  AJOUT DES PERSONNAGES :
+  Remplace les chemins ci-dessous par les images PNG
+  de tes personnages, lorsque tu disposes de ces fichiers.
+*/
+const characters={
+ JAX:"",
+ BUBBLE:"",
+ CAINE:"",
+ POMNI:"",
+ RAGATHA:""
+};
 
+/*
+  Les scènes contiennent le dialogue et le cours détaillé.
+  Les textes sont en français.
+*/
 const scenes=[
- {name:"01 — L’ARRIVÉE",who:"JAX",text:"Bienvenue dans ce petit voyage au cœur de la matière ! Aujourd’hui, nous allons découvrir comment les scientifiques ont imaginé l’atome au fil du temps.",people:["JAX"]},
- {name:"02 — LE THÉÂTRE",who:"JAX",text:"Installez-vous ! Le spectacle scientifique va commencer. Et surtout, essayez de suivre… même si certains invités sont un peu étranges.",people:["JAX"]},
- {name:"03 — UNE INTERRUPTION",who:"BUBBLE",text:"Jax ! Jax ! Est-ce qu’on peut commencer par Schrödinger ? J’adore Schrödinger !",people:["JAX","BUBBLE"]},
- {name:"04 — OUPS !",who:"JAX",text:"Schrödinger ? Déjà ? Quelle impatience… On va suivre l’ordre historique, Bubble. Et maintenant… pouf !",people:["JAX"]},
- {name:"05 — DALTON",who:"JAX",text:"Commençons avec John Dalton. Au début du XIXe siècle, vers 1803, il propose que la matière soit constituée de minuscules particules appelées atomes. Dans son modèle, l’atome est une sphère solide, indivisible et indestructible. Dalton pense aussi que les atomes d’un même élément sont identiques entre eux. Les composés se forment lorsque des atomes de différents éléments s’unissent selon des proportions simples. Lors d’une réaction chimique, les atomes ne disparaissent pas : ils se réarrangent pour former de nouvelles substances.",people:["JAX"],model:"DALTON",info:"L’atome est représenté comme une petite sphère solide et indivisible. Les atomes se réarrangent pendant les réactions chimiques."},
- {name:"06 — THOMSON",who:"JAX",text:"Quelques années plus tard, la découverte de l’électron par J. J. Thomson, en 1897, montre que l’atome n’est pas indivisible. Thomson propose alors un modèle dans lequel des électrons, chargés négativement, sont répartis dans une matière chargée positivement. On compare parfois ce modèle à un gâteau dans lequel les électrons seraient les raisins. L’ensemble est électriquement neutre : les charges positives compensent les charges négatives.",people:["JAX"],model:"THOMSON",info:"Des électrons négatifs sont intégrés dans une matière positive. L’ensemble de l’atome est neutre."},
- {name:"07 — CAINE ARRIVE",who:"CAINE",text:"TADAAAA ! Merci, merci ! Jax, votre présentation est terminée ! Je prends la relève !",people:["CAINE","JAX"]},
- {name:"08 — RUTHERFORD",who:"CAINE",text:"En 1911, Ernest Rutherford propose un nouveau modèle grâce à son expérience de diffusion de particules. Il en déduit que presque toute la masse et la charge positive de l’atome sont concentrées dans un noyau minuscule. Les électrons se trouvent autour de ce noyau. La plus grande partie du volume de l’atome est donc constituée de vide. Voilà une découverte capitale !",people:["CAINE"],model:"RUTHERFORD",info:"Un noyau minuscule, positif et massif se trouve au centre. L’atome est en grande partie constitué de vide."},
- {name:"09 — BOHR",who:"CAINE",text:"En 1913, Niels Bohr améliore le modèle nucléaire. Il propose que les électrons occupent des niveaux d’énergie bien déterminés. Un électron peut passer d’un niveau à un autre en absorbant ou en émettant une quantité précise d’énergie. Attention : ces niveaux ne sont pas de simples pistes matérielles autour du noyau. Ils représentent des états d’énergie autorisés.",people:["CAINE"],model:"BOHR",info:"Les électrons peuvent occuper des niveaux d’énergie déterminés et passer de l’un à l’autre."},
- {name:"10 — BUBBLE REVIENT",who:"BUBBLE",text:"Coucou ! Vous m’avez manqué ! Est-ce qu’on a fini ? Est-ce qu’on peut parler du chat maintenant ?",people:["CAINE","BUBBLE"]},
- {name:"11 — ENCORE UNE INTERRUPTION",who:"CAINE",text:"BUBBLE ! Pas maintenant ! Sortez de scène, s’il vous plaît ! Le spectacle continue !",people:["CAINE"]},
- {name:"12 — BUG !",who:"CAINE",text:"Et maintenant, place à la dernière partie… QUOI ?! Pourquoi l’écran ne fonctionne-t-il plus ?!",people:["CAINE"]},
- {name:"13 — POMNI",who:"POMNI",text:"Bonjour… Euh… Je crois que l’écran fonctionne à nouveau. On peut continuer, je pense.",people:["POMNI"]},
- {name:"14 — SCHRÖDINGER",who:"JAX",text:"On allait justement parler de Schrödinger ! À toi, Pomni. Explique-leur ce modèle avant que Caine ne fasse encore une catastrophe.",people:["JAX","POMNI"]},
- {name:"15 — LE MODÈLE QUANTIQUE",who:"POMNI",text:"Le modèle quantique, développé notamment à partir des travaux d’Erwin Schrödinger en 1926, change profondément notre manière de décrire l’électron. On ne lui attribue plus une trajectoire précise comme une petite planète autour du Soleil. On utilise une fonction d’onde pour décrire son état quantique. Le carré de cette fonction permet de calculer la probabilité de trouver l’électron dans une région donnée. Ces régions sont représentées par des orbitales atomiques. Le célèbre chat de Schrödinger est une expérience de pensée qui illustre certaines difficultés d’interprétation de la physique quantique : ce n’est pas une expérience réelle sur un chat.",people:["POMNI"],model:"SCHRÖDINGER",info:"La fonction d’onde permet de calculer les probabilités de présence de l’électron. Les orbitales décrivent ces régions de probabilité."},
- {name:"16 — CONCLUSION",who:"RAGATHA",text:"Et voilà ! Nous avons parcouru l’évolution des modèles atomiques, de la sphère de Dalton à la description quantique de Schrödinger. Chaque modèle a apporté de nouvelles connaissances et a permis d’améliorer le précédent. Merci d’avoir suivi notre aventure scientifique !",people:["RAGATHA","JAX","POMNI","CAINE"]},
- {name:"17 — FIN",who:"JAX",text:"C’était L’ATOME ! Merci d’avoir regardé. Et n’oubliez pas : la science est pleine de surprises… contrairement à Bubble, qui ne sait toujours pas attendre son tour.",people:["JAX","RAGATHA"]}
+{
+name:"L'arrivée",
+who:"JAX",
+title:"Bienvenue dans notre aventure !",
+dialogue:"Salut tout le monde ! Bienvenue dans cette aventure au cœur de la matière. Aujourd'hui, nous allons découvrir un élément minuscule qui compose tout ce qui nous entoure : l'atome !",
+visual:"space",
+explanation:`<h3>Qu'est-ce que la matière ?</h3>
+<p>La matière est tout ce qui possède une masse et occupe un volume. L'air, l'eau, les roches, les plantes et même notre corps sont constitués de matière.</p>
+<p>Mais si nous pouvions observer cette matière à une échelle extrêmement petite, nous découvririons qu'elle est constituée de particules. Parmi ces particules, nous trouvons les atomes.</p>
+<p>Les scientifiques ont progressivement construit différents modèles pour expliquer la structure de l'atome. Nous allons suivre cette évolution historique.</p>`
+},
+{
+name:"Dalton",
+who:"JAX",
+title:"John Dalton : la première représentation moderne",
+dialogue:"Commençons par John Dalton ! Au début du XIXe siècle, les scientifiques cherchent à comprendre pourquoi les substances se combinent selon des proportions précises. Dalton propose une idée qui va changer la chimie !",
+visual:"dalton",
+explanation:`<h3>1. Le modèle atomique de Dalton</h3>
+<p>Vers 1803, le scientifique anglais John Dalton développe une théorie atomique pour expliquer les transformations chimiques et les lois des proportions.</p>
+<p>Selon son modèle, toute matière est constituée de minuscules particules appelées atomes. Il représente chaque atome comme une petite sphère solide, indivisible et indestructible.</p>
+<p>Dalton considère que les atomes appartenant à un même élément chimique sont identiques entre eux, notamment par leur masse. Il pense également que les atomes d'éléments différents possèdent des propriétés différentes.</p>
+<h3>Comment se forment les composés ?</h3>
+<p>Pour Dalton, les composés chimiques apparaissent lorsque des atomes de différents éléments s'associent dans des proportions simples et définies.</p>
+<p>Par exemple, l'eau contient de l'hydrogène et de l'oxygène. Dans une molécule d'eau, deux atomes d'hydrogène sont associés à un atome d'oxygène : H₂O.</p>
+<h3>Que se passe-t-il pendant une réaction chimique ?</h3>
+<p>Les atomes ne sont pas créés ni détruits lors d'une réaction chimique ordinaire. Ils se séparent de certaines associations et se regroupent autrement pour former de nouvelles substances.</p>
+<h3>Importance et limites</h3>
+<p>Cette théorie a permis de mieux comprendre les lois chimiques et de donner une place centrale aux atomes dans l'explication de la matière.</p>
+<p>Mais les découvertes ultérieures ont montré que l'atome possède une structure interne et qu'il peut être divisé en particules plus petites. Le modèle de Dalton ne pouvait donc pas expliquer l'existence des électrons.</p>`
+},
+{
+name:"Thomson",
+who:"JAX",
+title:"Thomson : l'électron entre en scène !",
+dialogue:"Attendez ! Une nouvelle découverte vient bouleverser les idées de Dalton. En 1897, J. J. Thomson met en évidence l'électron. L'atome n'est donc pas une sphère indivisible !",
+visual:"thomson",
+explanation:`<h3>2. Le modèle atomique de Thomson</h3>
+<p>En 1897, le physicien britannique J. J. Thomson découvre l'électron grâce à ses recherches sur les rayons cathodiques.</p>
+<p>L'électron est une particule portant une charge électrique négative. Cette découverte démontre que l'atome possède une structure interne.</p>
+<h3>Comment Thomson imagine-t-il l'atome ?</h3>
+<p>Thomson propose un modèle dans lequel l'atome est constitué d'une matière chargée positivement dans laquelle sont répartis des électrons chargés négativement.</p>
+<p>On compare souvent cette représentation à un gâteau contenant des raisins : la matière positive forme le gâteau et les électrons représentent les raisins répartis à l'intérieur.</p>
+<h3>Pourquoi l'atome est-il neutre ?</h3>
+<p>Dans ce modèle, les charges négatives des électrons compensent la charge positive de la matière qui les entoure. L'atome possède donc une charge électrique totale nulle.</p>
+<h3>Importance et limites</h3>
+<p>Le modèle de Thomson constitue une avancée importante, car il introduit l'existence des électrons dans la structure atomique.</p>
+<p>Cependant, il ne décrit pas correctement la répartition de la charge positive et ne permet pas d'expliquer les résultats de l'expérience de Rutherford.</p>`
+},
+{
+name:"Caine arrive",
+who:"CAINE",
+title:"Le spectacle continue !",
+dialogue:"TADAAAA ! Très bien, très bien ! Nous avons découvert les électrons. Mais maintenant, place à une expérience spectaculaire ! Jax, laissez-moi la scène !",
+visual:"stage",
+explanation:`<h3>Une nouvelle étape dans l'histoire de l'atome</h3>
+<p>Les scientifiques cherchent maintenant à comprendre comment les charges positives et négatives sont réellement organisées à l'intérieur de l'atome.</p>
+<p>Une expérience va permettre de remettre en question le modèle de Thomson : l'expérience de la feuille d'or de Rutherford.</p>`
+},
+{
+name:"Rutherford",
+who:"CAINE",
+title:"Rutherford : découverte du noyau",
+dialogue:"Regardez bien ! Des particules positives sont envoyées vers une très fine feuille d'or. La plupart traversent directement la feuille, mais certaines sont déviées. Quelques-unes repartent même dans une autre direction !",
+visual:"rutherford",
+explanation:`<h3>3. L'expérience de Rutherford</h3>
+<p>Au début du XXe siècle, Ernest Rutherford et ses collaborateurs réalisent une expérience célèbre en envoyant des particules alpha sur une très fine feuille d'or.</p>
+<p>Les particules alpha sont positives. Si le modèle de Thomson était correct, elles devraient traverser la feuille avec seulement de petites déviations.</p>
+<h3>Les observations</h3>
+<p>La plupart des particules alpha traversent la feuille sans être déviées. Certaines changent de direction et une très petite proportion subit une forte déviation.</p>
+<h3>Les conclusions</h3>
+<p>Rutherford comprend que l'atome est constitué essentiellement de vide. Il propose que presque toute la masse et la charge positive soient concentrées dans une région centrale extrêmement petite : le noyau.</p>
+<p>Les électrons se trouvent autour de ce noyau. Le noyau est minuscule par rapport à la taille totale de l'atome.</p>
+<h3>Importance et limites</h3>
+<p>Ce modèle nucléaire transforme profondément la représentation de l'atome. Cependant, il ne permet pas à lui seul d'expliquer la stabilité des atomes ni les spectres lumineux observés.</p>`
+},
+{
+name:"Bohr",
+who:"CAINE",
+title:"Bohr : les niveaux d'énergie",
+dialogue:"Magnifique ! Mais une question demeure : comment les électrons peuvent-ils rester autour du noyau ? Niels Bohr propose une nouvelle représentation avec des niveaux d'énergie bien déterminés !",
+visual:"bohr",
+explanation:`<h3>4. Le modèle atomique de Bohr</h3>
+<p>En 1913, le physicien danois Niels Bohr propose un modèle qui améliore celui de Rutherford.</p>
+<p>Il introduit l'idée que les électrons ne peuvent occuper que certains états d'énergie autorisés. Dans une représentation simplifiée, ces états sont souvent dessinés sous forme de couches autour du noyau.</p>
+<h3>Les transitions électroniques</h3>
+<p>Un électron peut passer d'un niveau d'énergie à un autre. Pour atteindre un niveau supérieur, il doit absorber une quantité précise d'énergie.</p>
+<p>Lorsqu'il passe vers un niveau inférieur, il libère de l'énergie, souvent sous forme d'un photon, c'est-à-dire une particule de lumière.</p>
+<h3>Pourquoi ce modèle est-il important ?</h3>
+<p>Le modèle de Bohr explique notamment certaines propriétés du spectre de l'atome d'hydrogène.</p>
+<h3>Ses limites</h3>
+<p>Il ne décrit pas correctement tous les atomes, notamment ceux qui possèdent plusieurs électrons. Il sera progressivement remplacé par la description quantique moderne.</p>`
+},
+{
+name:"Bubble revient",
+who:"BUBBLE",
+title:"Une interruption inattendue !",
+dialogue:"Coucou ! Je suis revenu ! Est-ce qu'on va enfin parler de Schrödinger ? Je veux voir le fameux chat !",
+visual:"bubble",
+explanation:`<p>La suite va nous conduire vers une nouvelle manière de décrire les électrons : la physique quantique.</p>`
+},
+{
+name:"Pomni",
+who:"POMNI",
+title:"Le modèle quantique",
+dialogue:"Bonjour… Je crois que l'écran fonctionne de nouveau. Nous pouvons continuer. Le modèle de Schrödinger est très différent des représentations précédentes.",
+visual:"schrodinger",
+explanation:`<h3>5. Le modèle quantique de Schrödinger</h3>
+<p>En 1926, Erwin Schrödinger développe une équation fondamentale de la mécanique quantique. Cette approche transforme la façon dont les scientifiques décrivent les électrons.</p>
+<p>Dans les modèles précédents, les électrons étaient souvent représentés comme de petites particules suivant des trajectoires autour du noyau. La description quantique ne leur attribue plus une trajectoire précise de ce type.</p>
+<h3>La fonction d'onde</h3>
+<p>La fonction d'onde, généralement représentée par la lettre grecque ψ (psi), permet de décrire l'état quantique de l'électron.</p>
+<p>Le carré de sa valeur absolue, |ψ|², donne une densité de probabilité : il permet de calculer la probabilité de trouver l'électron dans une région donnée de l'espace.</p>
+<h3>Les orbitales atomiques</h3>
+<p>Une orbitale atomique est une description mathématique de l'état d'un électron. On la représente souvent par une forme ou un nuage indiquant les régions où la probabilité de présence de l'électron est importante.</p>
+<p>Il ne s'agit donc pas d'une petite planète qui tourne sur une piste circulaire autour du noyau.</p>
+<h3>Le chat de Schrödinger</h3>
+<p>Le célèbre chat de Schrödinger est une expérience de pensée imaginée pour discuter de certaines difficultés liées à l'interprétation de la mécanique quantique. Il ne s'agit pas d'une expérience réelle réalisée sur un chat.</p>
+<h3>Importance</h3>
+<p>Le modèle quantique constitue la base de notre compréhension moderne de la structure électronique des atomes. Il permet d'expliquer de nombreux phénomènes et propriétés de la matière.</p>`
+},
+{
+name:"Conclusion",
+who:"RAGATHA",
+title:"Une grande évolution scientifique",
+dialogue:"Nous avons découvert comment les idées sur l'atome ont évolué. Chaque scientifique a apporté une nouvelle pièce au puzzle et a permis de mieux comprendre la matière. Merci à tous !",
+visual:"ending",
+explanation:`<h3>Récapitulatif des modèles atomiques</h3>
+<p><b>Dalton :</b> l'atome est représenté comme une sphère solide indivisible.</p>
+<p><b>Thomson :</b> des électrons négatifs sont intégrés dans une matière positive.</p>
+<p><b>Rutherford :</b> l'atome possède un noyau central positif et est essentiellement constitué de vide.</p>
+<p><b>Bohr :</b> les électrons occupent des niveaux d'énergie déterminés.</p>
+<p><b>Schrödinger :</b> la description quantique utilise une fonction d'onde et des orbitales pour représenter les probabilités de présence des électrons.</p>
+<p>La science progresse grâce aux observations, aux expériences et à l'amélioration des modèles.</p>`
+}
 ];
 
-function character(name){
- const div=document.createElement("div");div.className="person "+name.toLowerCase();
- let extra="";
- if(name==="JAX")extra='<i class="ear one"></i><i class="ear two"></i>';
- if(name==="POMNI")extra='<i class="hat"></i>';
- if(name==="RAGATHA")extra='<i class="hair"></i>';
- div.innerHTML=extra+'<div class="body"></div><div class="head"><span class="eyes">● ●</span></div>';
- div.dataset.name=name;return div;
-}
-function renderPeople(list){
- cast.innerHTML="";
- list.forEach(n=>cast.appendChild(character(n)));
-}
-function showModel(s){
- if(!s.model){model.style.display="none";return}
- model.style.display="block";modelName.textContent=s.model;
- modelText.textContent=s.info;
-}
-function stopSpeech(){
- if("speechSynthesis" in window) speechSynthesis.cancel();
- document.querySelectorAll(".person").forEach(p=>p.classList.remove("speaking"));
-}
-function speak(s){
- stopSpeech();
- speaker.textContent=s.who;
- subtitle.textContent=s.text;
- if(muted||!("speechSynthesis" in window))return;
- const utter=new SpeechSynthesisUtterance(s.text);
- utter.lang="fr-FR";utter.rate=voices[s.who]?.rate||1;utter.pitch=voices[s.who]?.pitch||1;
- const all=speechSynthesis.getVoices();
- const french=all.find(v=>v.lang.toLowerCase().startsWith("fr"));
- if(french)utter.voice=french;
- const active=document.querySelector('.person[data-name="'+s.who+'"]');
- utter.onstart=()=>active?.classList.add("speaking");
- utter.onend=()=>active?.classList.remove("speaking");
- speechSynthesis.speak(utter);
-}
-function showScene(i){
- scene=Math.max(0,Math.min(i,scenes.length-1));
- const s=scenes[scene];
- sceneTitle.textContent=s.name;renderPeople(s.people);showModel(s);speak(s);
-}
-function nextScene(){
- if(scene<scenes.length-1)showScene(scene+1);
- else{playing=false;document.getElementById("play").textContent="↻ Recommencer"}
-}
-function playAll(){
- if(scene===scenes.length-1)showScene(0);
- playing=true;stopSpeech();
- const advance=()=>{
-  if(!playing)return;
-  const s=scenes[scene];
-  speak(s);
-  const words=s.text.split(/\s+/).length;
-  timeout=setTimeout(()=>{
-   if(!playing)return;
-   if(scene<scenes.length-1){scene++;showScene(scene);advance()}
-   else{playing=false}
-  },Math.max(6500,words*360));
- };
- advance();
-}
-document.getElementById("start").onclick=()=>{
- document.getElementById("intro").classList.add("hidden");
- showScene(0);playAll();
-};
-document.getElementById("play").onclick=()=>playAll();
-document.getElementById("pause").onclick=()=>{
- playing=false;clearTimeout(timeout);stopSpeech();
-};
-document.getElementById("next").onclick=()=>{
- playing=false;clearTimeout(timeout);nextScene();
-};
-document.getElementById("sound").onclick=e=>{
- muted=!muted;e.target.textContent=muted?"🔇 Son désactivé":"🔊 Son activé";
- if(muted)stopSpeech();
-};
+let current=0,muted=false,timer=null;
 
-const form=document.getElementById("chatForm");
-const input=document.getElementById("question");
-const messages=document.getElementById("messages");
-const history=[];
-function addMessage(text,who){
- const div=document.createElement("div");
- div.className="msg "+who;div.textContent=text;
- messages.appendChild(div);messages.scrollTop=messages.scrollHeight;
+function diagram(type){
+ const descriptions={
+ dalton:"Une sphère pleine et indivisible",
+ thomson:"Des électrons dans une matière positive",
+ rutherford:"Un noyau minuscule au centre de l'atome",
+ bohr:"Des niveaux d'énergie déterminés",
+ schrodinger:"Un nuage de probabilité électronique"
+ };
+ let html='<div id="diagram"><canvas id="atomCanvas" width="600" height="540"></canvas></div>';
+ html+='<h2>'+descriptions[type]+'</h2>';
+ return html;
 }
-form.addEventListener("submit",async e=>{
+
+function draw(type){
+ const c=document.getElementById("atomCanvas");
+ if(!c)return;
+ const ctx=c.getContext("2d");
+ let t=0;
+ function frame(){
+  if(!document.getElementById("atomCanvas"))return;
+  ctx.clearRect(0,0,600,540);
+  const x=300,y=260;
+  if(type==="dalton"){
+   ctx.beginPath();ctx.arc(x,y,105,0,Math.PI*2);
+   ctx.fillStyle="#a68bff";ctx.shadowBlur=35;ctx.shadowColor="#a68bff";ctx.fill();
+   ctx.fillStyle="white";ctx.font="23px Arial";ctx.fillText("Atome",260,390);
+  }else if(type==="thomson"){
+   ctx.beginPath();ctx.arc(x,y,150,0,Math.PI*2);
+   ctx.fillStyle="#f28caa";ctx.shadowBlur=20;ctx.shadowColor="#f28caa";ctx.fill();
+   for(let i=0;i<8;i++){
+    let a=i*Math.PI/4+t*.006;
+    ctx.beginPath();ctx.arc(x+95*Math.cos(a),y+95*Math.sin(a),13,0,Math.PI*2);
+    ctx.fillStyle="#35eaff";ctx.fill();
+   }
+  }else if(type==="rutherford"){
+   ctx.beginPath();ctx.arc(x,y,9,0,Math.PI*2);
+   ctx.fillStyle="#ff5e8d";ctx.shadowBlur=30;ctx.shadowColor="#ff5e8d";ctx.fill();
+   for(let i=0;i<3;i++){
+    ctx.beginPath();ctx.ellipse(x,y,100+i*35,40+i*30,t*.002+i,0,Math.PI*2);
+    ctx.strokeStyle="#63eaff";ctx.lineWidth=3;ctx.stroke();
+   }
+   ctx.beginPath();ctx.arc(x+130*Math.cos(t*.018),y+65*Math.sin(t*.018),11,0,Math.PI*2);
+   ctx.fillStyle="#5ceaff";ctx.fill();
+  }else if(type==="bohr"){
+   ctx.beginPath();ctx.arc(x,y,20,0,Math.PI*2);
+   ctx.fillStyle="#ff648b";ctx.fill();
+   for(let i=0;i<3;i++){
+    let r=65+i*45;
+    ctx.beginPath();ctx.arc(x,y,r,0,Math.PI*2);
+    ctx.strokeStyle="#6ceaff";ctx.lineWidth=2;ctx.stroke();
+    let a=t*.015+i*2;
+    ctx.beginPath();ctx.arc(x+r*Math.cos(a),y+r*Math.sin(a),10,0,Math.PI*2);
+    ctx.fillStyle="#62eaff";ctx.fill();
+   }
+  }else if(type==="schrodinger"){
+   for(let i=0;i<450;i++){
+    let a=i*2.399+t*.001;
+    let r=Math.sqrt(i/450)*145;
+    let px=x+Math.cos(a)*r;
+    let py=y+Math.sin(a)*r*.72;
+    ctx.beginPath();ctx.arc(px,py,3+(i%3),0,Math.PI*2);
+    ctx.fillStyle="rgba(90,225,255,"+(0.15+(i%8)/12)+")";
+    ctx.fill();
+   }
+   ctx.beginPath();ctx.arc(x,y,19,0,Math.PI*2);
+   ctx.fillStyle="#ff648b";ctx.fill();
+  }
+  t++;
+  requestAnimationFrame(frame);
+ }
+ frame();
+}
+
+function showScene(i){
+ current=Math.max(0,Math.min(i,scenes.length-1));
+ const s=scenes[current];
+ document.getElementById("sceneNumber").textContent="SCÈNE "+(current+1);
+ document.getElementById("bar").style.width=((current+1)/scenes.length*100)+"%";
+ document.getElementById("speaker").textContent=s.who;
+ document.getElementById("dialogue").textContent=s.dialogue;
+ document.getElementById("exTitle").textContent=s.title;
+ document.getElementById("exText").innerHTML=s.explanation;
+ const v=document.getElementById("visual");
+ if(["dalton","thomson","rutherford","bohr","schrodinger"].includes(s.visual)){
+  v.innerHTML=diagram(s.visual);
+  draw(s.visual);
+ }else{
+  const titles={
+   space:"Bienvenue dans l'espace !",
+   stage:"Le spectacle scientifique continue !",
+   bubble:"Bubble est de retour !",
+   ending:"Merci d'avoir suivi notre aventure !"
+  };
+  v.innerHTML="<h2>"+(titles[s.visual]||s.title)+"</h2><p>Une nouvelle étape de notre aventure scientifique.</p>";
+ }
+ document.querySelectorAll("#sceneList button").forEach((b,n)=>b.classList.toggle("active",n===current));
+ stopVoice();
+}
+
+function start(){
+ document.getElementById("intro").style.display="none";
+ document.getElementById("app").style.display="block";
+ const list=document.getElementById("sceneList");
+ scenes.forEach((s,i)=>{
+  const b=document.createElement("button");
+  b.textContent=(i+1)+". "+s.name;
+  b.onclick=()=>showScene(i);
+  list.appendChild(b);
+ });
+ showScene(0);
+}
+
+function next(){if(current<scenes.length-1)showScene(current+1)}
+function previous(){if(current>0)showScene(current-1)}
+
+function stopVoice(){
+ if("speechSynthesis"in window)speechSynthesis.cancel();
+ clearTimeout(timer);
+}
+function pause(){stopVoice()}
+
+function play(){
+ stopVoice();
+ if(muted)return;
+ if(!("speechSynthesis"in window)){
+  alert("La synthèse vocale n'est pas disponible sur cet appareil.");
+  return;
+ }
+ const s=scenes[current];
+ const u=new SpeechSynthesisUtterance(s.dialogue);
+ u.lang="fr-FR";
+ u.rate=.92;
+ u.pitch=1;
+ const voices=speechSynthesis.getVoices();
+ const french=voices.find(v=>v.lang.toLowerCase().startsWith("fr"));
+ if(french)u.voice=french;
+ speechSynthesis.speak(u);
+}
+function toggleSound(){
+ muted=!muted;
+ if(muted)stopVoice();
+ document.getElementById("soundButton").textContent=muted?"🔇 Son désactivé":"🔊 Son activé";
+}
+
+const quiz=[
+ {q:"Selon Dalton, comment était représenté l'atome ?",a:["Comme une sphère solide indivisible","Comme un noyau entouré d'électrons","Comme un nuage de probabilité"],correct:0},
+ {q:"Qui a découvert l'électron ?",a:["Bohr","Thomson","Schrödinger"],correct:1},
+ {q:"Quelle est la principale conclusion de Rutherford ?",a:["L'atome est entièrement solide","L'atome possède un noyau central","Les électrons sont des protons"],correct:1},
+ {q:"Que propose le modèle de Bohr ?",a:["Des niveaux d'énergie déterminés","Une sphère indivisible","La disparition du noyau"],correct:0},
+ {q:"Que décrit |ψ|² dans le modèle quantique ?",a:["La masse du noyau","La probabilité de présence","La charge du proton"],correct:1}
+];
+let qi=0;
+function showQuiz(){
+ const q=quiz[qi];
+ document.getElementById("quizQuestion").textContent=q.q;
+ const box=document.getElementById("answers");box.innerHTML="";
+ document.getElementById("feedback").textContent="";
+ q.a.forEach((a,i)=>{
+  const b=document.createElement("button");
+  b.className="answer";b.textContent=a;
+  b.onclick=()=>{
+   document.getElementById("feedback").textContent=
+    i===q.correct?"Bravo ! Bonne réponse !":"Pas tout à fait. Réessaie !";
+   if(i===q.correct){setTimeout(()=>{qi=(qi+1)%quiz.length;showQuiz()},1300)}
+  };
+  box.appendChild(b);
+ });
+}
+showQuiz();
+
+/*
+  JAX AI :
+  Cette partie attend une route sécurisée /api/chat.
+  Ne jamais placer la clé API dans ce fichier.
+*/
+document.getElementById("chatForm").addEventListener("submit",async e=>{
  e.preventDefault();
- const question=input.value.trim();if(!question)return;
- addMessage(question,"user");input.value="";
- history.push({role:"user",content:question});
- const wait=document.createElement("div");wait.className="msg jax";wait.textContent="Jax réfléchit…";messages.appendChild(wait);
+ const input=document.getElementById("question");
+ const messages=document.getElementById("messages");
+ const q=input.value.trim();if(!q)return;
+ const user=document.createElement("div");
+ user.className="msg user";user.textContent=q;messages.appendChild(user);
+ input.value="";
+ const answer=document.createElement("div");
+ answer.className="msg";answer.textContent="Jax réfléchit…";messages.appendChild(answer);
  try{
-  const res=await fetch("/api/chat",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({messages:history.slice(-8)})});
-  const data=await res.json();
-  if(!res.ok)throw new Error(data.error||"Erreur du serveur");
-  wait.textContent=data.answer;
-  history.push({role:"assistant",content:data.answer});
- }catch(err){wait.textContent="Oups ! Je n’arrive pas à répondre pour le moment. Vérifie la connexion au serveur."}
+  const r=await fetch("/api/chat",{
+   method:"POST",
+   headers:{"Content-Type":"application/json"},
+   body:JSON.stringify({messages:[{role:"user",content:q}]})
+  });
+  const data=await r.json();
+  if(!r.ok)throw new Error("Erreur");
+  answer.textContent=data.answer;
+ }catch{
+  answer.textContent="Je ne peux pas répondre pour le moment. La connexion à Jax AI doit être configurée sur le serveur.";
+ }
  messages.scrollTop=messages.scrollHeight;
 });
 </script>
 </body>
- </html>
-   
+</html>
